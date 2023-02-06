@@ -1,0 +1,3 @@
+/work/maxwell/vascpp/build/CMakeFiles/vascpp.dir
+/work/maxwell/vascpp/build/CMakeFiles/edit_cache.dir
+/work/maxwell/vascpp/build/CMakeFiles/rebuild_cache.dir

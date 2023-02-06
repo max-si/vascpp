@@ -1,0 +1,26 @@
+\SCALING RUN 1
+
+--------------------------------------------------------------------------
+WARNING: There was an error initializing an OpenFabrics device.
+
+  Local host:   medusa01
+  Local device: mlx4_0
+--------------------------------------------------------------------------
+Generations: 27
+Total Number of Vessels: 2.68435e+08
+Sequential Network Generation Time: 30.5632 seconds
+Sequential Export Time: 34.2207 seconds
+-- Total Network Generation Time: 73.8168 seconds
+\SCALING RUN 2
+
+--------------------------------------------------------------------------
+WARNING: There was an error initializing an OpenFabrics device.
+
+  Local host:   medusa01
+  Local device: mlx4_0
+--------------------------------------------------------------------------
+Generations: 27
+Total Number of Vessels: 2.68435e+08
+Sequential Network Generation Time: 30.5391 seconds
+Sequential Export Time: 33.9225 seconds
+-- Total Network Generation Time: 73.4815 seconds

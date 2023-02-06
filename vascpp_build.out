@@ -1,0 +1,81 @@
+/var/lib/slurm/slurmd/job48857/slurm_script:12: command not found: module
+/var/lib/slurm/slurmd/job48857/slurm_script:13: command not found: module
+/var/lib/slurm/slurmd/job48857/slurm_script:14: command not found: module
+CMake Warning at /work/maxwell/spack/opt/spack/linux-rhel8-skylake_avx512/gcc-8.5.0/cmake-3.25.1-xpn7zpwm47iwkcvb5aj42lcric732l3z/share/cmake-3.25/Modules/FindHDF5.cmake:743 (message):
+  HDF5 found for language C is parallel but previously found language is not
+  parallel.
+Call Stack (most recent call first):
+  CMakeLists.txt:8 (find_package)
+
+
+-- Enabled Kokkos devices: SERIAL
+-- Configuring done
+-- Generating done
+-- Build files have been written to: /work/maxwell/vascpp/build
+Building . . .
+[  7%] Building CXX object CMakeFiles/vascpp.dir/EpetraTutorials.cpp.o
+[ 15%] Linking CXX executable vascpp
+[100%] Built target vascpp
+--------------------------------------------------------------------------
+WARNING: There was an error initializing an OpenFabrics device.
+
+  Local host:   medusa02
+  Local device: mlx4_0
+--------------------------------------------------------------------------
+Generations: 10
+Total Number of Vessels: 2046
+Sequential Network Generation Time: 0.000245122 seconds
+Sequential Export Time: 0.00534652 seconds
+-- Total Network Generation Time: 0.00578525 seconds
+
+Creating Pressure Solution Vector.
+
+Initializing Linear Problem and Setting Preconditioner
+
+Solving Linear Problem
+
+		*******************************************************
+		***** Problem: Epetra::CrsMatrix
+		***** Preconditioned GMRES solution
+		***** 1 step block Jacobi
+		***** No scaling
+		*******************************************************
+
+                iter:    0           residual = 1.000000e+00
+                iter:    1           residual = 1.005208e-02
+                iter:    2           residual = 5.215140e-03
+                iter:    3           residual = 3.619048e-03
+                iter:    4           residual = 2.935331e-03
+                iter:    5           residual = 1.909040e-03
+                iter:    6           residual = 1.415327e-03
+                iter:    7           residual = 9.396693e-04
+                iter:    8           residual = 7.168317e-04
+                iter:    9           residual = 4.724917e-04
+                iter:   10           residual = 3.693080e-04
+                iter:   11           residual = 3.183805e-04
+                iter:   12           residual = 2.820066e-04
+                iter:   13           residual = 2.751603e-04
+                iter:   14           residual = 2.739533e-04
+                iter:   15           residual = 2.723392e-04
+                iter:   16           residual = 2.707446e-04
+                iter:   17           residual = 2.703524e-04
+                iter:   18           residual = 2.702902e-04
+                iter:   19           residual = 2.701925e-04
+                iter:   20           residual = 1.869738e-04
+                iter:   21           residual = 2.952919e-33
+
+
+		Solution time: 0.000917 (sec.)
+		total iterations: 21
+Solver performed 21 iterations.
+Norm of true residual = 3.11633e-16
+
+Found Pressures. Setting up Flow Solutions
+
+Creating Poiseuille Matrix
+
+Performing Matrix Vector Multiplication
+
+All Healthy Flows Calculated Correctly.
+
+Flow Solution Vector Exported to flow_mat.txt
