@@ -1,8 +1,0 @@
-/work/maxwell/vascpp/build/CMakeFiles/edit_cache.dir
-/work/maxwell/vascpp/build/CMakeFiles/rebuild_cache.dir
-/work/maxwell/vascpp/build/libs/CMakeFiles/VascppLibrary.dir
-/work/maxwell/vascpp/build/libs/CMakeFiles/edit_cache.dir
-/work/maxwell/vascpp/build/libs/CMakeFiles/rebuild_cache.dir
-/work/maxwell/vascpp/build/app/CMakeFiles/vessel_gen.dir
-/work/maxwell/vascpp/build/app/CMakeFiles/edit_cache.dir
-/work/maxwell/vascpp/build/app/CMakeFiles/rebuild_cache.dir
