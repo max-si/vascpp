@@ -1,81 +1,67 @@
-/var/lib/slurm/slurmd/job48857/slurm_script:12: command not found: module
-/var/lib/slurm/slurmd/job48857/slurm_script:13: command not found: module
-/var/lib/slurm/slurmd/job48857/slurm_script:14: command not found: module
-CMake Warning at /work/maxwell/spack/opt/spack/linux-rhel8-skylake_avx512/gcc-8.5.0/cmake-3.25.1-xpn7zpwm47iwkcvb5aj42lcric732l3z/share/cmake-3.25/Modules/FindHDF5.cmake:743 (message):
-  HDF5 found for language C is parallel but previously found language is not
-  parallel.
-Call Stack (most recent call first):
-  CMakeLists.txt:8 (find_package)
-
-
+/var/lib/slurm/slurmd/job51182/slurm_script:12: command not found: module
+/var/lib/slurm/slurmd/job51182/slurm_script:13: command not found: module
+/var/lib/slurm/slurmd/job51182/slurm_script:14: command not found: module
 -- Enabled Kokkos devices: SERIAL
 -- Configuring done
 -- Generating done
 -- Build files have been written to: /work/maxwell/vascpp/build
 Building . . .
-[  7%] Building CXX object CMakeFiles/vascpp.dir/EpetraTutorials.cpp.o
-[ 15%] Linking CXX executable vascpp
-[100%] Built target vascpp
+[  5%] Building CXX object libs/CMakeFiles/VascppLibrary.dir/NetworkPreprocessing/PartitionFunctions.cpp.o
+[ 10%] Linking CXX static library libVascppLibrary.a
+[ 89%] Built target VascppLibrary
+[ 94%] Linking CXX executable vessel_gen
+[100%] Built target vessel_gen
+--------------------------------------------------------------------------
+WARNING: There was an error initializing an OpenFabrics device.
+
+  Local host:   medusa03
+  Local device: mlx4_0
+--------------------------------------------------------------------------
 --------------------------------------------------------------------------
 WARNING: There was an error initializing an OpenFabrics device.
 
   Local host:   medusa02
   Local device: mlx4_0
 --------------------------------------------------------------------------
-Generations: 10
-Total Number of Vessels: 2046
-Sequential Network Generation Time: 0.000245122 seconds
-Sequential Export Time: 0.00534652 seconds
--- Total Network Generation Time: 0.00578525 seconds
+Generations: 3
+Total Number of Vessels: 14
+Root Num Levels = 2
+Sub Num Levels = 1
+-- Root Network Generation Time: 2.5402e-05 seconds
+-- Root Network Export Time: 0.0318166 seconds
+-- Sub Network Generation Time: 1.1633e-05 seconds
+-- Sub Network Sort Time: 4.161e-06 seconds
+-- Sub Network Export Time: 0.00701403 seconds
+-- Total Network Generation Time: 0.0389278 seconds
+0 Row Array
+0, 2, 4, 8, 11, 14, 17, 20, 
+1 Row Array
+0, 4, 8, 11, 14, 17, 20, 24, 
+nnz = 24, mpiRank = 1
+1 Col Array
+1, 5, 6, 13, 0, 2, 9, 10, 8, 10, 11, 8, 9, 12, 9, 12, 13, 10, 11, 13, 1, 7, 11, 12, 
+nnz = 20, mpiRank = 0
+0 Col Array
+2, 8, 7, 13, 0, 3, 4, 8, 2, 4, 5, 2, 3, 6, 3, 6, 7, 4, 5, 7, 
+Initial Edge Count: 4
 
-Creating Pressure Solution Vector.
+	Connected Vessels (2): 2 8 
+	Partition Number: 0 	OriginalIndex: 0
 
-Initializing Linear Problem and Setting Preconditioner
+	Connected Vessels (2): 7 13 
+	Partition Number: 1 	OriginalIndex: 1
 
-Solving Linear Problem
+	Connected Vessels (4): 0 3 4 8 
+	Partition Number: 0 	OriginalIndex: 2
 
-		*******************************************************
-		***** Problem: Epetra::CrsMatrix
-		***** Preconditioned GMRES solution
-		***** 1 step block Jacobi
-		***** No scaling
-		*******************************************************
+	Connected Vessels (3): 2 4 5 
+	Partition Number: 0 	OriginalIndex: 3
 
-                iter:    0           residual = 1.000000e+00
-                iter:    1           residual = 1.005208e-02
-                iter:    2           residual = 5.215140e-03
-                iter:    3           residual = 3.619048e-03
-                iter:    4           residual = 2.935331e-03
-                iter:    5           residual = 1.909040e-03
-                iter:    6           residual = 1.415327e-03
-                iter:    7           residual = 9.396693e-04
-                iter:    8           residual = 7.168317e-04
-                iter:    9           residual = 4.724917e-04
-                iter:   10           residual = 3.693080e-04
-                iter:   11           residual = 3.183805e-04
-                iter:   12           residual = 2.820066e-04
-                iter:   13           residual = 2.751603e-04
-                iter:   14           residual = 2.739533e-04
-                iter:   15           residual = 2.723392e-04
-                iter:   16           residual = 2.707446e-04
-                iter:   17           residual = 2.703524e-04
-                iter:   18           residual = 2.702902e-04
-                iter:   19           residual = 2.701925e-04
-                iter:   20           residual = 1.869738e-04
-                iter:   21           residual = 2.952919e-33
+	Connected Vessels (3): 2 3 6 
+	Partition Number: 0 	OriginalIndex: 4
 
+	Connected Vessels (3): 3 6 7 
+	Partition Number: 0 	OriginalIndex: 5
 
-		Solution time: 0.000917 (sec.)
-		total iterations: 21
-Solver performed 21 iterations.
-Norm of true residual = 3.11633e-16
-
-Found Pressures. Setting up Flow Solutions
-
-Creating Poiseuille Matrix
-
-Performing Matrix Vector Multiplication
-
-All Healthy Flows Calculated Correctly.
-
-Flow Solution Vector Exported to flow_mat.txt
+	Connected Vessels (3): 4 5 7 
+	Partition Number: 0 	OriginalIndex: 6

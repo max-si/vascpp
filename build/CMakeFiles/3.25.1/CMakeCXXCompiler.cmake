@@ -77,7 +77,7 @@ endif()
 
 
 
-set(CMAKE_CXX_IMPLICIT_INCLUDE_DIRECTORIES "/opt/apps/hwloc/2.7.1/include;/opt/apps/openmpi/4.1.4/include;/opt/apps/szip/2.1.1/include;/opt/apps/zlib/1.2.12/include;/opt/apps/hdf5/1.13.1/include;/opt/apps/gcc/12.2.0/include/c++/12.2.0;/opt/apps/gcc/12.2.0/include/c++/12.2.0/x86_64-redhat-linux;/opt/apps/gcc/12.2.0/include/c++/12.2.0/backward;/opt/apps/gcc/12.2.0/lib/gcc/x86_64-redhat-linux/12.2.0/include;/usr/local/include;/opt/apps/gcc/12.2.0/include;/opt/apps/gcc/12.2.0/lib/gcc/x86_64-redhat-linux/12.2.0/include-fixed;/usr/include")
+set(CMAKE_CXX_IMPLICIT_INCLUDE_DIRECTORIES "/opt/apps/hwloc/2.7.1/include;/opt/apps/openmpi/4.1.4/include;/opt/apps/szip/2.1.1/include;/opt/apps/zlib/1.2.12/include;/opt/apps/hdf5/1.13.1/include;/work/maxwell/spack/opt/spack/linux-rhel8-skylake_avx512/gcc-8.5.0/metis-5.1.0-da2upirhxnjssva3gxohqqrpw5mucspw/include;/opt/apps/gcc/12.2.0/include/c++/12.2.0;/opt/apps/gcc/12.2.0/include/c++/12.2.0/x86_64-redhat-linux;/opt/apps/gcc/12.2.0/include/c++/12.2.0/backward;/opt/apps/gcc/12.2.0/lib/gcc/x86_64-redhat-linux/12.2.0/include;/usr/local/include;/opt/apps/gcc/12.2.0/include;/opt/apps/gcc/12.2.0/lib/gcc/x86_64-redhat-linux/12.2.0/include-fixed;/usr/include")
 set(CMAKE_CXX_IMPLICIT_LINK_LIBRARIES "stdc++;m;gcc_s;gcc;c;gcc_s;gcc")
 set(CMAKE_CXX_IMPLICIT_LINK_DIRECTORIES "/opt/apps/gcc/12.2.0/lib/gcc/x86_64-redhat-linux/12.2.0;/opt/apps/gcc/12.2.0/lib64;/lib64;/usr/lib64;/opt/apps/gcc/12.2.0/lib")
 set(CMAKE_CXX_IMPLICIT_LINK_FRAMEWORK_DIRECTORIES "")

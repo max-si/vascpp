@@ -20,14 +20,15 @@ CMAKE_ADDR2LINE:FILEPATH=/usr/bin/addr2line
 //Path to a program.
 CMAKE_AR:FILEPATH=/usr/bin/ar
 
-//Choose the type of build.
-CMAKE_BUILD_TYPE:STRING=RelWithDebInfo
+//Choose the type of build, options are: None Debug Release RelWithDebInfo
+// MinSizeRel ...
+CMAKE_BUILD_TYPE:STRING=
 
 //Enable/Disable color output during build.
 CMAKE_COLOR_MAKEFILE:BOOL=ON
 
 //CXX compiler
-CMAKE_CXX_COMPILER:STRING=/opt/apps/gcc/12.2.0/bin/g++
+CMAKE_CXX_COMPILER:FILEPATH=/opt/apps/gcc/12.2.0/bin/g++
 
 //A wrapper around 'ar' adding the appropriate '--plugin' option
 // for the GCC compiler
@@ -55,7 +56,7 @@ CMAKE_CXX_FLAGS_RELEASE:STRING=-O3 -DNDEBUG
 CMAKE_CXX_FLAGS_RELWITHDEBINFO:STRING=-O2 -g -DNDEBUG
 
 //C compiler
-CMAKE_C_COMPILER:STRING=/opt/apps/gcc/12.2.0/bin/gcc
+CMAKE_C_COMPILER:FILEPATH=/opt/apps/gcc/12.2.0/bin/gcc
 
 //A wrapper around 'ar' adding the appropriate '--plugin' option
 // for the GCC compiler
@@ -151,21 +152,6 @@ CMAKE_PROJECT_HOMEPAGE_URL:STATIC=
 //Value Computed by CMake
 CMAKE_PROJECT_NAME:STATIC=vascpp
 
-//Value Computed by CMake
-CMAKE_PROJECT_VERSION:STATIC=2.6.2
-
-//Value Computed by CMake
-CMAKE_PROJECT_VERSION_MAJOR:STATIC=2
-
-//Value Computed by CMake
-CMAKE_PROJECT_VERSION_MINOR:STATIC=6
-
-//Value Computed by CMake
-CMAKE_PROJECT_VERSION_PATCH:STATIC=2
-
-//Value Computed by CMake
-CMAKE_PROJECT_VERSION_TWEAK:STATIC=
-
 //Path to a program.
 CMAKE_RANLIB:FILEPATH=/usr/bin/ranlib
 
@@ -228,17 +214,8 @@ CMAKE_STRIP:FILEPATH=/usr/bin/strip
 // Studio IDE projects all commands are done without /nologo.
 CMAKE_VERBOSE_MAKEFILE:BOOL=FALSE
 
-//Dot tool for use with Doxygen
-DOXYGEN_DOT_EXECUTABLE:FILEPATH=/usr/bin/dot
-
-//Doxygen documentation generation tool (http://www.doxygen.org)
-DOXYGEN_EXECUTABLE:FILEPATH=/usr/bin/doxygen
-
 //HDF5 C Wrapper compiler.  Used only to detect HDF5 compile flags.
 HDF5_C_COMPILER_EXECUTABLE:FILEPATH=/opt/apps/hdf5/1.13.1/bin/h5pcc
-
-//Path to a file.
-HDF5_C_INCLUDE_DIR:PATH=HDF5_C_INCLUDE_DIR-NOTFOUND
 
 //Path to a library.
 HDF5_C_LIBRARY_dl:FILEPATH=/usr/lib64/libdl.so
@@ -253,7 +230,7 @@ HDF5_C_LIBRARY_m:FILEPATH=/usr/lib64/libm.so
 HDF5_C_LIBRARY_sz:FILEPATH=/opt/apps/szip/2.1.1/lib/libsz.so
 
 //Path to a library.
-HDF5_C_LIBRARY_z:FILEPATH=/opt/apps/zlib/1.2.12/lib/libz.so
+HDF5_C_LIBRARY_z:FILEPATH=/work/maxwell/spack/opt/spack/linux-rhel8-skylake_avx512/gcc-8.5.0/zlib-1.2.13-olnwp4hyb4i6m7zcg2ppq6pvoekpq73r/lib/libz.so
 
 //HDF5 file differencing tool.
 HDF5_DIFF_EXECUTABLE:FILEPATH=/opt/apps/hdf5/1.13.1/bin/h5diff
@@ -261,50 +238,8 @@ HDF5_DIFF_EXECUTABLE:FILEPATH=/opt/apps/hdf5/1.13.1/bin/h5diff
 //The directory containing a CMake configuration file for HDF5.
 HDF5_DIR:PATH=HDF5_DIR-NOTFOUND
 
-//HDF5 library compiled with parallel IO support
-HDF5_IS_PARALLEL:BOOL=FALSE
-
-//Path to a library.
-HDF5_hdf5_LIBRARY_DEBUG:FILEPATH=HDF5_hdf5_LIBRARY_DEBUG-NOTFOUND
-
-//Path to a library.
-HDF5_hdf5_LIBRARY_RELEASE:FILEPATH=HDF5_hdf5_LIBRARY_RELEASE-NOTFOUND
-
-//Enable documentation building
-HIGHFIVE_BUILD_DOCS:BOOL=ON
-
-//No help, variable specified on the command line.
-HIGHFIVE_EXAMPLES:UNINITIALIZED=OFF
-
-//No help, variable specified on the command line.
-HIGHFIVE_PARALLEL_HDF5:UNINITIALIZED=ON
-
-//Enable unit tests (requires Catch2 to be present)
-HIGHFIVE_UNIT_TESTS:STRING=AUTO
-
-//No help, variable specified on the command line.
-HIGHFIVE_USE_BOOST:UNINITIALIZED=OFF
-
-//Enable Eigen testing
-HIGHFIVE_USE_EIGEN:BOOL=OFF
-
-//Enable half-precision floats
-HIGHFIVE_USE_HALF_FLOAT:BOOL=OFF
-
-//End applications by default use detected dependencies here
-HIGHFIVE_USE_INSTALL_DEPS:BOOL=OFF
-
-//Enable OpenCV testing
-HIGHFIVE_USE_OPENCV:BOOL=OFF
-
-//Enable xtensor testing
-HIGHFIVE_USE_XTENSOR:BOOL=OFF
-
-//Value Computed by CMake
-HighFive_BINARY_DIR:STATIC=/work/maxwell/vascpp/build/HighFive
-
-//Value Computed by CMake
-HighFive_SOURCE_DIR:STATIC=/work/maxwell/vascpp/HighFive
+//Directory where the ParMETIS library is located
+METIS_LIBRARY:FILEPATH=/work/maxwell/spack/opt/spack/linux-rhel8-skylake_avx512/gcc-8.5.0/metis-5.1.0-da2upirhxnjssva3gxohqqrpw5mucspw/lib/libmetis.so
 
 //Executable for running MPI programs.
 MPIEXEC_EXECUTABLE:FILEPATH=/opt/apps/openmpi/4.1.4/bin/mpiexec
@@ -348,7 +283,7 @@ MPI_CXX_LIB_NAMES:STRING=mpi
 MPI_CXX_LINK_FLAGS:STRING=-Wl,-rpath -Wl,/opt/apps/openmpi/4.1.4/lib -Wl,-rpath -Wl,/opt/apps/hwloc/2.7.1/lib -Wl,--enable-new-dtags -L/opt/apps/hwloc/2.7.1/lib -pthread
 
 //If true, the MPI-2 C++ bindings are disabled using definitions.
-MPI_CXX_SKIP_MPICXX:BOOL=FALSE
+MPI_CXX_SKIP_MPICXX:BOOL=OFF
 
 //MPI C additional include directories
 MPI_C_ADDITIONAL_INCLUDE_DIRS:STRING=
@@ -377,26 +312,26 @@ MPI_C_LINK_FLAGS:STRING=-Wl,-rpath -Wl,/opt/apps/openmpi/4.1.4/lib -Wl,-rpath -W
 //Location of the mpi library for MPI
 MPI_mpi_LIBRARY:FILEPATH=/opt/apps/openmpi/4.1.4/lib/libmpi.so
 
+//The directory containing a CMake configuration file for PARMETIS.
+PARMETIS_DIR:PATH=PARMETIS_DIR-NOTFOUND
+
+//Directory where the ParMETIS header files are located
+PARMETIS_INCLUDE_DIR:PATH=/work/maxwell/spack/opt/spack/linux-rhel8-skylake_avx512/gcc-8.5.0/parmetis-4.0.3-cgk7r55pz4hifr3qkx22j7utfrv7o4k7/include
+
+//Directory where the ParMETIS library is located
+PARMETIS_LIBRARY:FILEPATH=/work/maxwell/spack/opt/spack/linux-rhel8-skylake_avx512/gcc-8.5.0/parmetis-4.0.3-cgk7r55pz4hifr3qkx22j7utfrv7o4k7/lib/libparmetis.so
+
 //Arguments to supply to pkg-config
 PKG_CONFIG_ARGN:STRING=
 
 //pkg-config executable
 PKG_CONFIG_EXECUTABLE:FILEPATH=/work/maxwell/spack/opt/spack/linux-rhel8-skylake_avx512/gcc-8.5.0/pkgconf-1.8.0-mnvauaelvaeptmkgf433f23afoc5iqqk/bin/pkg-config
 
+//The directory containing a CMake configuration file for Parmetis.
+Parmetis_DIR:PATH=Parmetis_DIR-NOTFOUND
+
 //The directory containing a CMake configuration file for Trilinos.
-Trilinos_DIR:PATH=/work/maxwell/spack/opt/spack/linux-rhel8-skylake_avx512/gcc-8.5.0/trilinos-13.0.1-k4k7qgff26vt73okx4lzepc3obfxphez/lib/cmake/Trilinos
-
-//Enable Boost Support
-USE_BOOST:BOOL=ON
-
-//Enable Eigen testing
-USE_EIGEN:BOOL=OFF
-
-//Enable OpenCV testing
-USE_OPENCV:BOOL=OFF
-
-//Enable xtensor testing
-USE_XTENSOR:BOOL=OFF
+Trilinos_DIR:PATH=/work/maxwell/spack/opt/spack/linux-rhel8-skylake_avx512/gcc-8.5.0/trilinos-13.0.1-aj4uuaad6jt56tlvyvyvqyeispr6tyc5/lib/cmake/Trilinos
 
 //Value Computed by CMake
 vascpp_BINARY_DIR:STATIC=/work/maxwell/vascpp/build
@@ -467,7 +402,7 @@ CMAKE_C_FLAGS_RELWITHDEBINFO-ADVANCED:INTERNAL=1
 //ADVANCED property for variable: CMAKE_DLLTOOL
 CMAKE_DLLTOOL-ADVANCED:INTERNAL=1
 //Path to cache edit program executable.
-CMAKE_EDIT_COMMAND:INTERNAL=/usr/bin/ccmake
+CMAKE_EDIT_COMMAND:INTERNAL=/work/maxwell/spack/opt/spack/linux-rhel8-skylake_avx512/gcc-8.5.0/cmake-3.25.1-xpn7zpwm47iwkcvb5aj42lcric732l3z/bin/ccmake
 //Executable file format
 CMAKE_EXECUTABLE_FORMAT:INTERNAL=ELF
 //ADVANCED property for variable: CMAKE_EXE_LINKER_FLAGS
@@ -514,7 +449,7 @@ CMAKE_MODULE_LINKER_FLAGS_RELWITHDEBINFO-ADVANCED:INTERNAL=1
 //ADVANCED property for variable: CMAKE_NM
 CMAKE_NM-ADVANCED:INTERNAL=1
 //number of local generators
-CMAKE_NUMBER_OF_MAKEFILES:INTERNAL=1
+CMAKE_NUMBER_OF_MAKEFILES:INTERNAL=3
 //ADVANCED property for variable: CMAKE_OBJCOPY
 CMAKE_OBJCOPY-ADVANCED:INTERNAL=1
 //ADVANCED property for variable: CMAKE_OBJDUMP
@@ -557,40 +492,26 @@ CMAKE_STRIP-ADVANCED:INTERNAL=1
 CMAKE_UNAME:INTERNAL=/usr/bin/uname
 //ADVANCED property for variable: CMAKE_VERBOSE_MAKEFILE
 CMAKE_VERBOSE_MAKEFILE-ADVANCED:INTERNAL=1
-//ADVANCED property for variable: DOXYGEN_DOT_EXECUTABLE
-DOXYGEN_DOT_EXECUTABLE-ADVANCED:INTERNAL=1
-//ADVANCED property for variable: DOXYGEN_EXECUTABLE
-DOXYGEN_EXECUTABLE-ADVANCED:INTERNAL=1
-//Details about finding Doxygen
-FIND_PACKAGE_MESSAGE_DETAILS_Doxygen:INTERNAL=[/usr/bin/doxygen][cfound components: doxygen dot ][v1.8.14()]
 //Details about finding HDF5
-FIND_PACKAGE_MESSAGE_DETAILS_HDF5:INTERNAL=[/opt/apps/hdf5/1.13.1/lib/libhdf5.so;/opt/apps/szip/2.1.1/lib/libsz.so;/opt/apps/zlib/1.2.12/lib/libz.so;/usr/lib64/libdl.so;/usr/lib64/libm.so][c ][v1.13.1()]
+FIND_PACKAGE_MESSAGE_DETAILS_HDF5:INTERNAL=[/opt/apps/hdf5/1.13.1/lib/libhdf5.so;/opt/apps/szip/2.1.1/lib/libsz.so;/work/maxwell/spack/opt/spack/linux-rhel8-skylake_avx512/gcc-8.5.0/zlib-1.2.13-olnwp4hyb4i6m7zcg2ppq6pvoekpq73r/lib/libz.so;/usr/lib64/libdl.so;/usr/lib64/libm.so][c ][v1.13.1()]
 //Details about finding MPI
 FIND_PACKAGE_MESSAGE_DETAILS_MPI:INTERNAL=[TRUE][TRUE][c ][v3.1()]
 //Details about finding MPI_C
 FIND_PACKAGE_MESSAGE_DETAILS_MPI_C:INTERNAL=[/opt/apps/openmpi/4.1.4/lib/libmpi.so][mpi][/opt/apps/openmpi/4.1.4/include][TRUE][v3.1()]
 //Details about finding MPI_CXX
 FIND_PACKAGE_MESSAGE_DETAILS_MPI_CXX:INTERNAL=[/opt/apps/openmpi/4.1.4/lib/libmpi.so][mpi][/opt/apps/openmpi/4.1.4/include][TRUE][v3.1()]
+//Details about finding ParMETIS
+FIND_PACKAGE_MESSAGE_DETAILS_ParMETIS:INTERNAL=[/work/maxwell/spack/opt/spack/linux-rhel8-skylake_avx512/gcc-8.5.0/parmetis-4.0.3-cgk7r55pz4hifr3qkx22j7utfrv7o4k7/lib/libparmetis.so][/work/maxwell/spack/opt/spack/linux-rhel8-skylake_avx512/gcc-8.5.0/parmetis-4.0.3-cgk7r55pz4hifr3qkx22j7utfrv7o4k7/include][/work/maxwell/spack/opt/spack/linux-rhel8-skylake_avx512/gcc-8.5.0/metis-5.1.0-da2upirhxnjssva3gxohqqrpw5mucspw/lib/libmetis.so][true][v4.0()]
 //ADVANCED property for variable: HDF5_C_COMPILER_EXECUTABLE
 HDF5_C_COMPILER_EXECUTABLE-ADVANCED:INTERNAL=1
 //Result of TRY_COMPILE
 HDF5_C_COMPILER_NO_INTERROGATE:INTERNAL=FALSE
-//ADVANCED property for variable: HDF5_C_INCLUDE_DIR
-HDF5_C_INCLUDE_DIR-ADVANCED:INTERNAL=1
 //ADVANCED property for variable: HDF5_DIFF_EXECUTABLE
 HDF5_DIFF_EXECUTABLE-ADVANCED:INTERNAL=1
 //ADVANCED property for variable: HDF5_DIR
 HDF5_DIR-ADVANCED:INTERNAL=1
-//ADVANCED property for variable: HDF5_IS_PARALLEL
-HDF5_IS_PARALLEL-ADVANCED:INTERNAL=1
-//ADVANCED property for variable: HDF5_hdf5_LIBRARY_DEBUG
-HDF5_hdf5_LIBRARY_DEBUG-ADVANCED:INTERNAL=1
-//ADVANCED property for variable: HDF5_hdf5_LIBRARY_RELEASE
-HDF5_hdf5_LIBRARY_RELEASE-ADVANCED:INTERNAL=1
-//STRINGS property for variable: HIGHFIVE_UNIT_TESTS
-HIGHFIVE_UNIT_TESTS-STRINGS:INTERNAL=AUTO;ON;OFF
-//ADVANCED property for variable: HIGHFIVE_USE_INSTALL_DEPS
-HIGHFIVE_USE_INSTALL_DEPS-ADVANCED:INTERNAL=1
+//ADVANCED property for variable: METIS_LIBRARY
+METIS_LIBRARY-ADVANCED:INTERNAL=1
 //ADVANCED property for variable: MPIEXEC_EXECUTABLE
 MPIEXEC_EXECUTABLE-ADVANCED:INTERNAL=1
 //ADVANCED property for variable: MPIEXEC_MAX_NUMPROCS
@@ -643,16 +564,14 @@ MPI_RESULT_CXX_test_mpi_normal:INTERNAL=TRUE
 MPI_RESULT_C_test_mpi_normal:INTERNAL=TRUE
 //ADVANCED property for variable: MPI_mpi_LIBRARY
 MPI_mpi_LIBRARY-ADVANCED:INTERNAL=1
+//ADVANCED property for variable: PARMETIS_INCLUDE_DIR
+PARMETIS_INCLUDE_DIR-ADVANCED:INTERNAL=1
+//ADVANCED property for variable: PARMETIS_LIBRARY
+PARMETIS_LIBRARY-ADVANCED:INTERNAL=1
 //ADVANCED property for variable: PKG_CONFIG_ARGN
 PKG_CONFIG_ARGN-ADVANCED:INTERNAL=1
 //ADVANCED property for variable: PKG_CONFIG_EXECUTABLE
 PKG_CONFIG_EXECUTABLE-ADVANCED:INTERNAL=1
-//ADVANCED property for variable: USE_BOOST
-USE_BOOST-ADVANCED:INTERNAL=1
-//ADVANCED property for variable: USE_EIGEN
-USE_EIGEN-ADVANCED:INTERNAL=1
-//ADVANCED property for variable: USE_XTENSOR
-USE_XTENSOR-ADVANCED:INTERNAL=1
 //linker supports push/pop state
 _CMAKE_LINKER_PUSHPOP_STATE_SUPPORTED:INTERNAL=TRUE
 

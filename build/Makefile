@@ -68,7 +68,7 @@ CMAKE_BINARY_DIR = /work/maxwell/vascpp/build
 # Special rule for the target edit_cache
 edit_cache:
 	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --cyan "Running CMake cache editor..."
-	/usr/bin/ccmake -S$(CMAKE_SOURCE_DIR) -B$(CMAKE_BINARY_DIR)
+	/work/maxwell/spack/opt/spack/linux-rhel8-skylake_avx512/gcc-8.5.0/cmake-3.25.1-xpn7zpwm47iwkcvb5aj42lcric732l3z/bin/ccmake -S$(CMAKE_SOURCE_DIR) -B$(CMAKE_BINARY_DIR)
 .PHONY : edit_cache
 
 # Special rule for the target edit_cache
@@ -117,305 +117,30 @@ depend:
 .PHONY : depend
 
 #=============================================================================
-# Target rules for targets named vascpp
+# Target rules for targets named VascppLibrary
 
 # Build rule for target.
-vascpp: cmake_check_build_system
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/Makefile2 vascpp
-.PHONY : vascpp
+VascppLibrary: cmake_check_build_system
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/Makefile2 VascppLibrary
+.PHONY : VascppLibrary
 
 # fast build rule for target.
-vascpp/fast:
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/vascpp.dir/build.make CMakeFiles/vascpp.dir/build
-.PHONY : vascpp/fast
-
-EpetraTutorials.o: EpetraTutorials.cpp.o
-.PHONY : EpetraTutorials.o
-
-# target to build an object file
-EpetraTutorials.cpp.o:
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/vascpp.dir/build.make CMakeFiles/vascpp.dir/EpetraTutorials.cpp.o
-.PHONY : EpetraTutorials.cpp.o
-
-EpetraTutorials.i: EpetraTutorials.cpp.i
-.PHONY : EpetraTutorials.i
-
-# target to preprocess a source file
-EpetraTutorials.cpp.i:
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/vascpp.dir/build.make CMakeFiles/vascpp.dir/EpetraTutorials.cpp.i
-.PHONY : EpetraTutorials.cpp.i
-
-EpetraTutorials.s: EpetraTutorials.cpp.s
-.PHONY : EpetraTutorials.s
-
-# target to generate assembly for a file
-EpetraTutorials.cpp.s:
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/vascpp.dir/build.make CMakeFiles/vascpp.dir/EpetraTutorials.cpp.s
-.PHONY : EpetraTutorials.cpp.s
-
-GeneratorSharedHdfFunctions.o: GeneratorSharedHdfFunctions.cpp.o
-.PHONY : GeneratorSharedHdfFunctions.o
-
-# target to build an object file
-GeneratorSharedHdfFunctions.cpp.o:
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/vascpp.dir/build.make CMakeFiles/vascpp.dir/GeneratorSharedHdfFunctions.cpp.o
-.PHONY : GeneratorSharedHdfFunctions.cpp.o
-
-GeneratorSharedHdfFunctions.i: GeneratorSharedHdfFunctions.cpp.i
-.PHONY : GeneratorSharedHdfFunctions.i
-
-# target to preprocess a source file
-GeneratorSharedHdfFunctions.cpp.i:
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/vascpp.dir/build.make CMakeFiles/vascpp.dir/GeneratorSharedHdfFunctions.cpp.i
-.PHONY : GeneratorSharedHdfFunctions.cpp.i
-
-GeneratorSharedHdfFunctions.s: GeneratorSharedHdfFunctions.cpp.s
-.PHONY : GeneratorSharedHdfFunctions.s
-
-# target to generate assembly for a file
-GeneratorSharedHdfFunctions.cpp.s:
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/vascpp.dir/build.make CMakeFiles/vascpp.dir/GeneratorSharedHdfFunctions.cpp.s
-.PHONY : GeneratorSharedHdfFunctions.cpp.s
-
-ImportExportCommon.o: ImportExportCommon.cpp.o
-.PHONY : ImportExportCommon.o
-
-# target to build an object file
-ImportExportCommon.cpp.o:
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/vascpp.dir/build.make CMakeFiles/vascpp.dir/ImportExportCommon.cpp.o
-.PHONY : ImportExportCommon.cpp.o
-
-ImportExportCommon.i: ImportExportCommon.cpp.i
-.PHONY : ImportExportCommon.i
-
-# target to preprocess a source file
-ImportExportCommon.cpp.i:
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/vascpp.dir/build.make CMakeFiles/vascpp.dir/ImportExportCommon.cpp.i
-.PHONY : ImportExportCommon.cpp.i
-
-ImportExportCommon.s: ImportExportCommon.cpp.s
-.PHONY : ImportExportCommon.s
-
-# target to generate assembly for a file
-ImportExportCommon.cpp.s:
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/vascpp.dir/build.make CMakeFiles/vascpp.dir/ImportExportCommon.cpp.s
-.PHONY : ImportExportCommon.cpp.s
-
-PressureListCreator.o: PressureListCreator.cpp.o
-.PHONY : PressureListCreator.o
-
-# target to build an object file
-PressureListCreator.cpp.o:
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/vascpp.dir/build.make CMakeFiles/vascpp.dir/PressureListCreator.cpp.o
-.PHONY : PressureListCreator.cpp.o
-
-PressureListCreator.i: PressureListCreator.cpp.i
-.PHONY : PressureListCreator.i
-
-# target to preprocess a source file
-PressureListCreator.cpp.i:
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/vascpp.dir/build.make CMakeFiles/vascpp.dir/PressureListCreator.cpp.i
-.PHONY : PressureListCreator.cpp.i
-
-PressureListCreator.s: PressureListCreator.cpp.s
-.PHONY : PressureListCreator.s
-
-# target to generate assembly for a file
-PressureListCreator.cpp.s:
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/vascpp.dir/build.make CMakeFiles/vascpp.dir/PressureListCreator.cpp.s
-.PHONY : PressureListCreator.cpp.s
-
-RootVesselExporter.o: RootVesselExporter.cpp.o
-.PHONY : RootVesselExporter.o
-
-# target to build an object file
-RootVesselExporter.cpp.o:
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/vascpp.dir/build.make CMakeFiles/vascpp.dir/RootVesselExporter.cpp.o
-.PHONY : RootVesselExporter.cpp.o
-
-RootVesselExporter.i: RootVesselExporter.cpp.i
-.PHONY : RootVesselExporter.i
-
-# target to preprocess a source file
-RootVesselExporter.cpp.i:
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/vascpp.dir/build.make CMakeFiles/vascpp.dir/RootVesselExporter.cpp.i
-.PHONY : RootVesselExporter.cpp.i
-
-RootVesselExporter.s: RootVesselExporter.cpp.s
-.PHONY : RootVesselExporter.s
-
-# target to generate assembly for a file
-RootVesselExporter.cpp.s:
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/vascpp.dir/build.make CMakeFiles/vascpp.dir/RootVesselExporter.cpp.s
-.PHONY : RootVesselExporter.cpp.s
-
-SubNetworkExporter.o: SubNetworkExporter.cpp.o
-.PHONY : SubNetworkExporter.o
-
-# target to build an object file
-SubNetworkExporter.cpp.o:
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/vascpp.dir/build.make CMakeFiles/vascpp.dir/SubNetworkExporter.cpp.o
-.PHONY : SubNetworkExporter.cpp.o
-
-SubNetworkExporter.i: SubNetworkExporter.cpp.i
-.PHONY : SubNetworkExporter.i
-
-# target to preprocess a source file
-SubNetworkExporter.cpp.i:
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/vascpp.dir/build.make CMakeFiles/vascpp.dir/SubNetworkExporter.cpp.i
-.PHONY : SubNetworkExporter.cpp.i
-
-SubNetworkExporter.s: SubNetworkExporter.cpp.s
-.PHONY : SubNetworkExporter.s
-
-# target to generate assembly for a file
-SubNetworkExporter.cpp.s:
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/vascpp.dir/build.make CMakeFiles/vascpp.dir/SubNetworkExporter.cpp.s
-.PHONY : SubNetworkExporter.cpp.s
-
-Triplet.o: Triplet.cpp.o
-.PHONY : Triplet.o
-
-# target to build an object file
-Triplet.cpp.o:
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/vascpp.dir/build.make CMakeFiles/vascpp.dir/Triplet.cpp.o
-.PHONY : Triplet.cpp.o
-
-Triplet.i: Triplet.cpp.i
-.PHONY : Triplet.i
-
-# target to preprocess a source file
-Triplet.cpp.i:
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/vascpp.dir/build.make CMakeFiles/vascpp.dir/Triplet.cpp.i
-.PHONY : Triplet.cpp.i
-
-Triplet.s: Triplet.cpp.s
-.PHONY : Triplet.s
-
-# target to generate assembly for a file
-Triplet.cpp.s:
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/vascpp.dir/build.make CMakeFiles/vascpp.dir/Triplet.cpp.s
-.PHONY : Triplet.cpp.s
-
-VesselNetworkExporter_HDF5.o: VesselNetworkExporter_HDF5.cpp.o
-.PHONY : VesselNetworkExporter_HDF5.o
-
-# target to build an object file
-VesselNetworkExporter_HDF5.cpp.o:
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/vascpp.dir/build.make CMakeFiles/vascpp.dir/VesselNetworkExporter_HDF5.cpp.o
-.PHONY : VesselNetworkExporter_HDF5.cpp.o
-
-VesselNetworkExporter_HDF5.i: VesselNetworkExporter_HDF5.cpp.i
-.PHONY : VesselNetworkExporter_HDF5.i
-
-# target to preprocess a source file
-VesselNetworkExporter_HDF5.cpp.i:
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/vascpp.dir/build.make CMakeFiles/vascpp.dir/VesselNetworkExporter_HDF5.cpp.i
-.PHONY : VesselNetworkExporter_HDF5.cpp.i
-
-VesselNetworkExporter_HDF5.s: VesselNetworkExporter_HDF5.cpp.s
-.PHONY : VesselNetworkExporter_HDF5.s
-
-# target to generate assembly for a file
-VesselNetworkExporter_HDF5.cpp.s:
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/vascpp.dir/build.make CMakeFiles/vascpp.dir/VesselNetworkExporter_HDF5.cpp.s
-.PHONY : VesselNetworkExporter_HDF5.cpp.s
-
-coordinate.o: coordinate.cpp.o
-.PHONY : coordinate.o
-
-# target to build an object file
-coordinate.cpp.o:
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/vascpp.dir/build.make CMakeFiles/vascpp.dir/coordinate.cpp.o
-.PHONY : coordinate.cpp.o
-
-coordinate.i: coordinate.cpp.i
-.PHONY : coordinate.i
-
-# target to preprocess a source file
-coordinate.cpp.i:
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/vascpp.dir/build.make CMakeFiles/vascpp.dir/coordinate.cpp.i
-.PHONY : coordinate.cpp.i
-
-coordinate.s: coordinate.cpp.s
-.PHONY : coordinate.s
-
-# target to generate assembly for a file
-coordinate.cpp.s:
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/vascpp.dir/build.make CMakeFiles/vascpp.dir/coordinate.cpp.s
-.PHONY : coordinate.cpp.s
-
-main.o: main.cpp.o
-.PHONY : main.o
-
-# target to build an object file
-main.cpp.o:
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/vascpp.dir/build.make CMakeFiles/vascpp.dir/main.cpp.o
-.PHONY : main.cpp.o
-
-main.i: main.cpp.i
-.PHONY : main.i
-
-# target to preprocess a source file
-main.cpp.i:
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/vascpp.dir/build.make CMakeFiles/vascpp.dir/main.cpp.i
-.PHONY : main.cpp.i
-
-main.s: main.cpp.s
-.PHONY : main.s
-
-# target to generate assembly for a file
-main.cpp.s:
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/vascpp.dir/build.make CMakeFiles/vascpp.dir/main.cpp.s
-.PHONY : main.cpp.s
-
-network.o: network.cpp.o
-.PHONY : network.o
-
-# target to build an object file
-network.cpp.o:
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/vascpp.dir/build.make CMakeFiles/vascpp.dir/network.cpp.o
-.PHONY : network.cpp.o
-
-network.i: network.cpp.i
-.PHONY : network.i
-
-# target to preprocess a source file
-network.cpp.i:
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/vascpp.dir/build.make CMakeFiles/vascpp.dir/network.cpp.i
-.PHONY : network.cpp.i
-
-network.s: network.cpp.s
-.PHONY : network.s
-
-# target to generate assembly for a file
-network.cpp.s:
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/vascpp.dir/build.make CMakeFiles/vascpp.dir/network.cpp.s
-.PHONY : network.cpp.s
-
-vessel.o: vessel.cpp.o
-.PHONY : vessel.o
-
-# target to build an object file
-vessel.cpp.o:
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/vascpp.dir/build.make CMakeFiles/vascpp.dir/vessel.cpp.o
-.PHONY : vessel.cpp.o
-
-vessel.i: vessel.cpp.i
-.PHONY : vessel.i
-
-# target to preprocess a source file
-vessel.cpp.i:
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/vascpp.dir/build.make CMakeFiles/vascpp.dir/vessel.cpp.i
-.PHONY : vessel.cpp.i
-
-vessel.s: vessel.cpp.s
-.PHONY : vessel.s
-
-# target to generate assembly for a file
-vessel.cpp.s:
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/vascpp.dir/build.make CMakeFiles/vascpp.dir/vessel.cpp.s
-.PHONY : vessel.cpp.s
+VascppLibrary/fast:
+	$(MAKE) $(MAKESILENT) -f libs/CMakeFiles/VascppLibrary.dir/build.make libs/CMakeFiles/VascppLibrary.dir/build
+.PHONY : VascppLibrary/fast
+
+#=============================================================================
+# Target rules for targets named vessel_gen
+
+# Build rule for target.
+vessel_gen: cmake_check_build_system
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/Makefile2 vessel_gen
+.PHONY : vessel_gen
+
+# fast build rule for target.
+vessel_gen/fast:
+	$(MAKE) $(MAKESILENT) -f app/CMakeFiles/vessel_gen.dir/build.make app/CMakeFiles/vessel_gen.dir/build
+.PHONY : vessel_gen/fast
 
 # Help Target
 help:
@@ -425,43 +150,8 @@ help:
 	@echo "... depend"
 	@echo "... edit_cache"
 	@echo "... rebuild_cache"
-	@echo "... vascpp"
-	@echo "... EpetraTutorials.o"
-	@echo "... EpetraTutorials.i"
-	@echo "... EpetraTutorials.s"
-	@echo "... GeneratorSharedHdfFunctions.o"
-	@echo "... GeneratorSharedHdfFunctions.i"
-	@echo "... GeneratorSharedHdfFunctions.s"
-	@echo "... ImportExportCommon.o"
-	@echo "... ImportExportCommon.i"
-	@echo "... ImportExportCommon.s"
-	@echo "... PressureListCreator.o"
-	@echo "... PressureListCreator.i"
-	@echo "... PressureListCreator.s"
-	@echo "... RootVesselExporter.o"
-	@echo "... RootVesselExporter.i"
-	@echo "... RootVesselExporter.s"
-	@echo "... SubNetworkExporter.o"
-	@echo "... SubNetworkExporter.i"
-	@echo "... SubNetworkExporter.s"
-	@echo "... Triplet.o"
-	@echo "... Triplet.i"
-	@echo "... Triplet.s"
-	@echo "... VesselNetworkExporter_HDF5.o"
-	@echo "... VesselNetworkExporter_HDF5.i"
-	@echo "... VesselNetworkExporter_HDF5.s"
-	@echo "... coordinate.o"
-	@echo "... coordinate.i"
-	@echo "... coordinate.s"
-	@echo "... main.o"
-	@echo "... main.i"
-	@echo "... main.s"
-	@echo "... network.o"
-	@echo "... network.i"
-	@echo "... network.s"
-	@echo "... vessel.o"
-	@echo "... vessel.i"
-	@echo "... vessel.s"
+	@echo "... VascppLibrary"
+	@echo "... vessel_gen"
 .PHONY : help
 
 

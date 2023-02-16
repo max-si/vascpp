@@ -1,0 +1,38 @@
+
+
+add_library(VascppLibrary
+			"${CMAKE_CURRENT_SOURCE_DIR}/core/Timsort.h"
+			"${CMAKE_CURRENT_SOURCE_DIR}/VesselGenerator/coordinate.cpp"
+			"${CMAKE_CURRENT_SOURCE_DIR}/VesselGenerator/GeneratorSharedHdfFunctions.cpp"
+			"${CMAKE_CURRENT_SOURCE_DIR}/VesselGenerator/ImportExportCommon.cpp"
+			"${CMAKE_CURRENT_SOURCE_DIR}/VesselGenerator/network.cpp"
+			"${CMAKE_CURRENT_SOURCE_DIR}/VesselGenerator/RootVesselExporter.cpp"
+			"${CMAKE_CURRENT_SOURCE_DIR}/VesselGenerator/SubNetworkExporter.cpp"
+			"${CMAKE_CURRENT_SOURCE_DIR}/VesselGenerator/vessel.cpp"
+			"${CMAKE_CURRENT_SOURCE_DIR}/VesselGenerator/VesselNetworkExporter_HDF5.cpp"
+			"${CMAKE_CURRENT_SOURCE_DIR}/VesselGenerator/coordinate.h"
+			"${CMAKE_CURRENT_SOURCE_DIR}/VesselGenerator/GeneratorSharedHdfFunctions.h"
+			"${CMAKE_CURRENT_SOURCE_DIR}/VesselGenerator/Hdf5FileStructureNames.h"
+			"${CMAKE_CURRENT_SOURCE_DIR}/VesselGenerator/HdfTypeTemplate.h"
+			"${CMAKE_CURRENT_SOURCE_DIR}/VesselGenerator/ImportExportCommon.h"
+			"${CMAKE_CURRENT_SOURCE_DIR}/VesselGenerator/ImportExportHdfBlock.h"
+			"${CMAKE_CURRENT_SOURCE_DIR}/VesselGenerator/network.h"
+			"${CMAKE_CURRENT_SOURCE_DIR}/VesselGenerator/vessel.h"
+			"${CMAKE_CURRENT_SOURCE_DIR}/VesselGenerator/VesselNetworkExporter.h"
+			"${CMAKE_CURRENT_SOURCE_DIR}/BloodFlow/EpetraTutorials.cpp"
+			"${CMAKE_CURRENT_SOURCE_DIR}/BloodFlow/EpetraTutorials.h"
+			"${CMAKE_CURRENT_SOURCE_DIR}/BloodFlow/PressureListCreator.cpp"
+			"${CMAKE_CURRENT_SOURCE_DIR}/BloodFlow/PressureListCreator.h"
+			"${CMAKE_CURRENT_SOURCE_DIR}/BloodFlow/Triplet.cpp"
+			"${CMAKE_CURRENT_SOURCE_DIR}/BloodFlow/Triplet.h"
+			"${CMAKE_CURRENT_SOURCE_DIR}/NetworkPreprocessing/AdjacencyMatrix.cpp"
+			"${CMAKE_CURRENT_SOURCE_DIR}/NetworkPreprocessing/AdjacencyMatrix.h"
+			"${CMAKE_CURRENT_SOURCE_DIR}/NetworkPreprocessing/PreprocessorVessel.cpp"
+			"${CMAKE_CURRENT_SOURCE_DIR}/NetworkPreprocessing/PreprocessorVessel.h"
+			"${CMAKE_CURRENT_SOURCE_DIR}/NetworkPreprocessing/preImporter.cpp"
+			"${CMAKE_CURRENT_SOURCE_DIR}/NetworkPreprocessing/preImporter.h"
+			"${CMAKE_CURRENT_SOURCE_DIR}/NetworkPreprocessing/PartitionFunctions.cpp"
+			"${CMAKE_CURRENT_SOURCE_DIR}/NetworkPreprocessing/PartitionFunctions.h"
+			"${CMAKE_CURRENT_SOURCE_DIR}/NetworkPreprocessing/GenerateAdjacencyMatrix.cpp")	
+
+target_include_directories(VascppLibrary PUBLIC "${CMAKE_CURRENT_SOURCE_DIR}")
