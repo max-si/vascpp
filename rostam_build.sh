@@ -40,4 +40,4 @@ echo "Building . . ."
 cmake --build .
 
 # run program
-srun app/vessel_gen 4 2
+srun app/vessel_gen 5 2

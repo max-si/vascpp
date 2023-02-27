@@ -79,8 +79,8 @@ if e:
 	cb.ax.set_yticklabels(tklbl)
 	#ttl = filename[11] + ' Layers on ' + str(p_sz) + ' Nodes, After NP'
 	
-# Plot data for single node data (i.e., before step2)  
-#! For single node, veins are written in reverse order
+  
+#! For single node
 else:
 	for i in range(0, sz):
 		[x1, x2] = [geom_array[i][0], geom_array[i][3]]
@@ -89,11 +89,10 @@ else:
 		node2 = node_array[i][1]
 		#conductance = conductance_array[i][0]
 		norm_rad = 3*(geom_array[i][6] / geom_array[0][6])
-		ax.plot([x1,x2], [y1,y2], color='red', linewidth=norm_rad)
-		plt.text(x1, y1, node1, fontsize=8, bbox = dict(boxstyle=f"circle", fc="white"))
-		plt.text(x2, y2, node2, fontsize=8, bbox = dict(boxstyle=f"circle", fc="white"))
-		#ttl = filename[11] + ' Layers on '+ filename[9] + ' Nodes, Before NP'
-		plt.text((x1+x2)/2, (y1+y2)/2 + 0.001, i, fontsize=8, weight='bold')
+		ax.plot([x1,x2], [y1,y2], color='black', linewidth=norm_rad)
+		plt.text(x1, y1, node1, fontsize=6, bbox = dict(boxstyle=f"circle", fc="white"))
+		plt.text(x2, y2, node2, fontsize=6, bbox = dict(boxstyle=f"circle", fc="white"))
+		# plt.text((x1+x2)/2, (y1+y2)/2 + 0.001, i, fontsize=7, weight='bold')
 		#plt.text((x1+x2)/2, (y1+y2)/2 + 0.001, conductance, fontsize=6, weight='bold')
 		plt.xticks(fontsize=6)
 		plt.yticks(fontsize=6)
@@ -103,4 +102,4 @@ else:
 ax.set_xlabel('x [mm]', fontsize=8)
 ax.set_ylabel('y [mm]', fontsize=8)
 #plt.title("4 gen on 4 nodes - vascpp", weight='bold')
-plt.savefig('3-2-sorted.png', dpi=500)
+plt.savefig('5-2-geometry.png', dpi=500)

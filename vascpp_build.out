@@ -1,6 +1,6 @@
-/var/lib/slurm/slurmd/job52059/slurm_script:12: command not found: module
-/var/lib/slurm/slurmd/job52059/slurm_script:13: command not found: module
-/var/lib/slurm/slurmd/job52059/slurm_script:14: command not found: module
+/var/lib/slurm/slurmd/job52606/slurm_script:12: command not found: module
+/var/lib/slurm/slurmd/job52606/slurm_script:13: command not found: module
+/var/lib/slurm/slurmd/job52606/slurm_script:14: command not found: module
 -- Enabled Kokkos devices: SERIAL
 -- Configuring done
 -- Generating done
@@ -14,23 +14,23 @@ Building . . .
 --------------------------------------------------------------------------
 WARNING: There was an error initializing an OpenFabrics device.
 
-  Local host:   medusa01
+  Local host:   medusa03
   Local device: mlx4_0
 --------------------------------------------------------------------------
 --------------------------------------------------------------------------
 WARNING: There was an error initializing an OpenFabrics device.
 
-  Local host:   medusa02
+  Local host:   medusa04
   Local device: mlx4_0
 --------------------------------------------------------------------------
-Generations: 4
-Total Number of Vessels: 30
+Generations: 5
+Total Number of Vessels: 62
 Root Num Levels = 2
-Sub Num Levels = 2
--- Root Network Generation Time: 3.254e-05 seconds
--- Root Network Export Time: 0.03605 seconds
--- Sub Network Generation Time: 2.0243e-05 seconds
--- Sub Network Sort Time: 1.297e-05 seconds
--- Sub Network Export Time: 0.0118568 seconds
--- Total Network Generation Time: 0.048022 seconds
+Sub Num Levels = 3
+-- Root Network Generation Time: 2.3551e-05 seconds
+-- Root Network Export Time: 0.138671 seconds
+-- Sub Network Generation Time: 3.9039e-05 seconds
+-- Sub Network Sort Time: 2.65e-05 seconds
+-- Sub Network Export Time: 0.00711267 seconds
+-- Total Network Generation Time: 0.145927 seconds
 Initial Edge Count: 4
