@@ -5,6 +5,7 @@
 #include <stdexcept>
 #include <string>
 #include <vector>
+#include <algorithm>
 
 #include <mpi.h>
 #include <parmetis.h>
@@ -13,6 +14,7 @@
 #include "preImporter.h"
 #include "AdjacencyMatrix.h"
 #include "PartitionFunctions.h"
+#include "SortedVesselExporter.h"
 
 
 void networkPreproc(std::string filename) {
@@ -24,22 +26,24 @@ void networkPreproc(std::string filename) {
 	std::vector<PreprocessorVessel> vessels = PreprocessorVesselImporter(fileId);
 	MPI_Barrier(MPI_COMM_WORLD);
 
-	//std::cout << "mpiRank = " << mpiRank << ", vessels size = " << vessels.size() << std::endl;
-
-	// for(int i = 0; i < vessels.size(); i++) {
-	// 	std::cout << vessels[i]  << std::endl;
-	// }
-
 	int numParts = mpiSize;
 	AdjacencyMatrix adjacencyMatrix;
 	GenerateAdjacencyMatrix(vessels, numParts, adjacencyMatrix);
 
 	PartitionMatrix(vessels, adjacencyMatrix);
 
-    if(!mpiRank)
-        for(int i = 0; i < vessels.size(); i++) {
-            std::cout << vessels[i]  << std::endl;
-        }
+    adjacencyMatrix.DeallocateMatrix();
+
+    SortVesselsByPartition(vessels);
+
+    RenumberConnectedVesselsBeforeExport(vessels);
+
+    ExportVesselDataSorted(fileId, vessels, numParts);
+
+    // if(!mpiRank)
+    //     for(int i = 0; i < vessels.size(); i++) {
+    //         std::cout << vessels[i]  << std::endl;
+    //     }
 }
 
 
@@ -104,4 +108,10 @@ void PartitionMatrix(std::vector<PreprocessorVessel>& vessels, AdjacencyMatrix& 
     {
         vessels[i].setPartitionNumber(partArray[i]);
     }
+}
+
+void SortVesselsByPartition(std::vector<PreprocessorVessel>& vessels)
+{
+    //pss::parallel_sort(vessels.begin(), vessels.end(), CompareVesselNodesPartition);
+    std::sort(vessels.begin(), vessels.end(), CompareVesselNodesPartition);
 }

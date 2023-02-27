@@ -40,9 +40,4 @@ echo "Building . . ."
 cmake --build .
 
 # run program
-srun app/vessel_gen 3 2 
-
-
-#valgrind srun vascpp 3 2
-#mpiexec -n 2 vascpp 25 2
-#python3 plot_file.py
+srun app/vessel_gen 4 2

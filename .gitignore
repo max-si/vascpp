@@ -5,3 +5,5 @@
 ScalingData/
 TimingData/
 build/
+pipeline_rostam.sh
+vascpp_build.out

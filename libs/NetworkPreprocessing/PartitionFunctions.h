@@ -19,3 +19,14 @@ void PartitionMatrix(std::vector<PreprocessorVessel>& vessels, AdjacencyMatrix& 
 // In-place sorting of vessel objects to group local vessels by partition
 // This facilitates renumbering and exporting
 void SortVesselsByPartition(std::vector<PreprocessorVessel>& vessels);
+
+/**
+ * Optimized function for renumbering vessel indexes in the connected data
+ *
+ * This function creates a map using the sorted, but unpartitioned, vessels.
+ * the map is created by passing the corresponding vessel map around in a ring to each node.
+ * This reduced the volume of disk use significnantly and improve performance of the algoirhtm.
+ * In the fututre, the buffers, could probably be passed simultaneously with updating the vessel map
+ * @param vessels
+ */
+void RenumberConnectedVesselsBeforeExport(std::vector<PreprocessorVessel>& vessels);

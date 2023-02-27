@@ -1,20 +1,20 @@
-/var/lib/slurm/slurmd/job51182/slurm_script:12: command not found: module
-/var/lib/slurm/slurmd/job51182/slurm_script:13: command not found: module
-/var/lib/slurm/slurmd/job51182/slurm_script:14: command not found: module
+/var/lib/slurm/slurmd/job52059/slurm_script:12: command not found: module
+/var/lib/slurm/slurmd/job52059/slurm_script:13: command not found: module
+/var/lib/slurm/slurmd/job52059/slurm_script:14: command not found: module
 -- Enabled Kokkos devices: SERIAL
 -- Configuring done
 -- Generating done
 -- Build files have been written to: /work/maxwell/vascpp/build
 Building . . .
-[  5%] Building CXX object libs/CMakeFiles/VascppLibrary.dir/NetworkPreprocessing/PartitionFunctions.cpp.o
-[ 10%] Linking CXX static library libVascppLibrary.a
-[ 89%] Built target VascppLibrary
-[ 94%] Linking CXX executable vessel_gen
+[  4%] Building CXX object libs/CMakeFiles/VascppLibrary.dir/NetworkPreprocessing/PartitionFunctions.cpp.o
+[  9%] Linking CXX static library libVascppLibrary.a
+[ 90%] Built target VascppLibrary
+[ 95%] Linking CXX executable vessel_gen
 [100%] Built target vessel_gen
 --------------------------------------------------------------------------
 WARNING: There was an error initializing an OpenFabrics device.
 
-  Local host:   medusa03
+  Local host:   medusa01
   Local device: mlx4_0
 --------------------------------------------------------------------------
 --------------------------------------------------------------------------
@@ -23,45 +23,14 @@ WARNING: There was an error initializing an OpenFabrics device.
   Local host:   medusa02
   Local device: mlx4_0
 --------------------------------------------------------------------------
-Generations: 3
-Total Number of Vessels: 14
+Generations: 4
+Total Number of Vessels: 30
 Root Num Levels = 2
-Sub Num Levels = 1
--- Root Network Generation Time: 2.5402e-05 seconds
--- Root Network Export Time: 0.0318166 seconds
--- Sub Network Generation Time: 1.1633e-05 seconds
--- Sub Network Sort Time: 4.161e-06 seconds
--- Sub Network Export Time: 0.00701403 seconds
--- Total Network Generation Time: 0.0389278 seconds
-0 Row Array
-0, 2, 4, 8, 11, 14, 17, 20, 
-1 Row Array
-0, 4, 8, 11, 14, 17, 20, 24, 
-nnz = 24, mpiRank = 1
-1 Col Array
-1, 5, 6, 13, 0, 2, 9, 10, 8, 10, 11, 8, 9, 12, 9, 12, 13, 10, 11, 13, 1, 7, 11, 12, 
-nnz = 20, mpiRank = 0
-0 Col Array
-2, 8, 7, 13, 0, 3, 4, 8, 2, 4, 5, 2, 3, 6, 3, 6, 7, 4, 5, 7, 
+Sub Num Levels = 2
+-- Root Network Generation Time: 3.254e-05 seconds
+-- Root Network Export Time: 0.03605 seconds
+-- Sub Network Generation Time: 2.0243e-05 seconds
+-- Sub Network Sort Time: 1.297e-05 seconds
+-- Sub Network Export Time: 0.0118568 seconds
+-- Total Network Generation Time: 0.048022 seconds
 Initial Edge Count: 4
-
-	Connected Vessels (2): 2 8 
-	Partition Number: 0 	OriginalIndex: 0
-
-	Connected Vessels (2): 7 13 
-	Partition Number: 1 	OriginalIndex: 1
-
-	Connected Vessels (4): 0 3 4 8 
-	Partition Number: 0 	OriginalIndex: 2
-
-	Connected Vessels (3): 2 4 5 
-	Partition Number: 0 	OriginalIndex: 3
-
-	Connected Vessels (3): 2 3 6 
-	Partition Number: 0 	OriginalIndex: 4
-
-	Connected Vessels (3): 3 6 7 
-	Partition Number: 0 	OriginalIndex: 5
-
-	Connected Vessels (3): 4 5 7 
-	Partition Number: 0 	OriginalIndex: 6

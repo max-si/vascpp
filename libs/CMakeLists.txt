@@ -33,6 +33,9 @@ add_library(VascppLibrary
 			"${CMAKE_CURRENT_SOURCE_DIR}/NetworkPreprocessing/preImporter.h"
 			"${CMAKE_CURRENT_SOURCE_DIR}/NetworkPreprocessing/PartitionFunctions.cpp"
 			"${CMAKE_CURRENT_SOURCE_DIR}/NetworkPreprocessing/PartitionFunctions.h"
-			"${CMAKE_CURRENT_SOURCE_DIR}/NetworkPreprocessing/GenerateAdjacencyMatrix.cpp")	
+			"${CMAKE_CURRENT_SOURCE_DIR}/NetworkPreprocessing/GenerateAdjacencyMatrix.cpp"
+			"${CMAKE_CURRENT_SOURCE_DIR}/NetworkPreprocessing/RenumberConnectedVesselsBeforeExport.cpp"
+			"${CMAKE_CURRENT_SOURCE_DIR}/NetworkPreprocessing/SortedVesselExporter.h"
+			"${CMAKE_CURRENT_SOURCE_DIR}/NetworkPreprocessing/SortedVesselExporter.cpp")	
 
 target_include_directories(VascppLibrary PUBLIC "${CMAKE_CURRENT_SOURCE_DIR}")
