@@ -101,5 +101,5 @@ else:
 
 ax.set_xlabel('x [mm]', fontsize=8)
 ax.set_ylabel('y [mm]', fontsize=8)
-#plt.title("4 gen on 4 nodes - vascpp", weight='bold')
-plt.savefig('5-2-geometry.png', dpi=500)
+#plt.title("5 gen on 2 nodes - vascpp", weight='bold')
+plt.savefig('5-2-geometry.png')

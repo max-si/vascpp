@@ -44,7 +44,7 @@ The data is stored in HDF5 files (by default stored in the build directory). The
 
 ### Plot
 2-dimensional plots can be generated from the HDF5 output file with the python script "plot_file.py" in the python_scripts directory. The file path can be changed with the "filename" variable.
-*(https://stackoverflow.com/questions/14494747/how-to-add-images-to-readme-md-on-github)
+![alt text](https://github.com/max-si/vascpp/blob/main/Plots/5-2-geometry.png?raw=true)
 
 # Funding & Acknowledgments
 The development of this software was supported by ...
