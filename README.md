@@ -32,6 +32,7 @@ Command Line Inputs:
 2. Number of Generations
 3. Number of Dimensions
 4. Output File Name
+
 Example: "srun app/vessel_gen 4 2 test.h5" will create a 2-dimensional network of 4 generations (30 vessels) and save the output data to "geometry_4_2.h5"
 
 The executable can be run sequentially or distributed, however MPI is required either way (this may be changed in future implementations). 

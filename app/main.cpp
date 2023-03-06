@@ -14,10 +14,12 @@
 #include "VesselGenerator/coordinate.h"
 #include "VesselGenerator/vessel.h"
 
-#include "BloodFlow/Triplet.h"
-#include "BloodFlow/PressureListCreator.h"
-#include "BloodFlow/EpetraTutorials.h"
 #include "NetworkPreprocessing/PartitionFunctions.h"
+
+#include "BloodFlow/Triplet.h"
+#include "BloodFlow/BloodFlowFunc.h"
+// #include "BloodFlow/PressureListCreator.h"
+// #include "BloodFlow/EpetraTutorials.h"
 
 typedef std::vector<Vessel> VesselVector;
 typedef std::vector<std::vector<double>> Vector2D;
@@ -78,22 +80,22 @@ int main(int argc, char* argv[]) {
 
 
 	//! Starting PreProcessing
-	if (!mpiRank) { std::cout << "Starting Network Preprocessing" << std::endl; }
+	if (!mpiRank) { std::cout << std::endl << "Starting Network Preprocessing" << std::endl; }
 	double t2 = MPI_Wtime();
 	networkPreproc(filename);
 	if (!mpiRank) {
 		std::cout << "-- Network Preprocessing Time: " << (MPI_Wtime()-time) << " seconds" << std::endl;
 	}
 
-	// MPI_Barrier(MPI_COMM_WORLD);
-	// TripletVector TripletList;
-	// CreatePressureTripletList(filename, numLevels, TripletList);
-
 	// Epetra tests
 	//MLAztecOO ();
 	// if (mpiSize == 1) {
 	// 	AssembleMatrixSequential(network, filename, numLevels);
 	// }
+
+	//! Starting Blood Flow Solver
+	if (!mpiRank) { std::cout << std::endl << "Starting Blood Flow Solver" << std::endl; }
+	BloodFlowExe(filename);
 	
 
 	MPI_Finalize();

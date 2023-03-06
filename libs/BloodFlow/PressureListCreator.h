@@ -1,15 +1,20 @@
 #pragma once
 
 #include <vector>
-#include <string>
 
-#include <hdf5.h>
-
-#include "VesselGenerator/vessel.h"
 #include "Triplet.h"
+#include "NetworkDescription.h"
 
-typedef std::vector<Triplet> TripletVector;
+/**
+ * Function to create a triplet list with healthy vessel conductances
+ * @param[in] network
+ * @param[out] tripletList
+ */
+void HealthyPressureListCreator(const NetworkDescription& network, std::vector<Triplet>& tripletList);
 
-void CreatePressureTripletList(std::string filename, int numLevels, TripletVector& TripletList);
-
-void ImportNodesAndConductances(std::string filename, int start, int numRows, std::vector<long long>& nodeArray, std::vector<double>& conductanceArray);
+/**
+ * Function to create a triplet list with damaged vessel conductances
+ * @param[in] network
+ * @param[out] tripletList
+ */
+void DamagedPressureListCreator(const NetworkDescription& network, std::vector<Triplet>& tripletList);
