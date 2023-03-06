@@ -29,8 +29,8 @@ fig.set_size_inches(6.5, 5)
 ax = fig.add_subplot(111)
 
 # plot data for distributed network (i.e., after step2)
-#e = 'VESSELS_PER_PARTITION_ARRAY' in k
-e = 0
+e = 'VESSELS_PER_PARTITION_ARRAY' in k
+#e = 0
 
 if e:
 	# retreive partition data
@@ -57,9 +57,11 @@ if e:
 				
 		# plot vessels, nodes, and vessel numbers
 		ax.plot([x1,x2], [y1,y2], c=cmap(col), linewidth=norm_rad)
-		plt.text(x1, y1+.001, node1, fontsize=8)
-		plt.text(x2, y2+.001, node2, fontsize=8)
-		plt.text((x1+x2)/2, (y1+y2)/2 + 0.001, i, fontsize=8)
+		# plt.text(x1, y1+.001, node1, fontsize=8)
+		# plt.text(x2, y2+.001, node2, fontsize=8)
+		plt.text(x1, y1, node1, fontsize=6, bbox = dict(boxstyle=f"circle", fc="white"))
+		plt.text(x2, y2, node2, fontsize=6, bbox = dict(boxstyle=f"circle", fc="white"))
+		plt.text((x1+x2)/2, (y1+y2)/2 + 0.001, i, fontsize=6)
   
 	# Plot properties/customizations
 	# change properties depending on # of nodes
@@ -102,4 +104,4 @@ else:
 ax.set_xlabel('x [mm]', fontsize=8)
 ax.set_ylabel('y [mm]', fontsize=8)
 #plt.title("5 gen on 2 nodes - vascpp", weight='bold')
-plt.savefig('5-2-geometry.png')
+plt.savefig('5-4-edgeNodes.png', dpi=300)

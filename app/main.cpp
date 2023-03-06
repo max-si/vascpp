@@ -78,9 +78,12 @@ int main(int argc, char* argv[]) {
 
 
 	//! Starting PreProcessing
+	if (!mpiRank) { std::cout << "Starting Network Preprocessing" << std::endl; }
+	double t2 = MPI_Wtime();
 	networkPreproc(filename);
-
-
+	if (!mpiRank) {
+		std::cout << "-- Network Preprocessing Time: " << (MPI_Wtime()-time) << " seconds" << std::endl;
+	}
 
 	// MPI_Barrier(MPI_COMM_WORLD);
 	// TripletVector TripletList;

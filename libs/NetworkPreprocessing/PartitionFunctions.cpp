@@ -15,9 +15,11 @@
 #include "AdjacencyMatrix.h"
 #include "PartitionFunctions.h"
 #include "SortedVesselExporter.h"
+#include "NodeProcessing.h"
 
 
 void networkPreproc(std::string filename) {
+    //std::cout << "Entering network preprocessor" << std::endl;
 	int mpiSize, mpiRank;
 	MPI_Comm_size(MPI_COMM_WORLD, &mpiSize);
 	MPI_Comm_rank(MPI_COMM_WORLD, &mpiRank);
@@ -44,6 +46,11 @@ void networkPreproc(std::string filename) {
     //     for(int i = 0; i < vessels.size(); i++) {
     //         std::cout << vessels[i]  << std::endl;
     //     }
+
+    NodeProcessing(fileId);
+
+    //std::cout << "Closing File" << std::endl;
+    H5close();
 }
 
 
@@ -78,10 +85,6 @@ void PartitionMatrix(std::vector<PreprocessorVessel>& vessels, AdjacencyMatrix& 
     MPI_Comm_dup(MPI_COMM_WORLD, &comm);
     //cout << "entering parMetis" << endl;
 
-	// change to PartGeomKway?
-    // add idx_t* ndims, real_t *xyz
-    // ndims - number of dimensions of the space in which the graph is embedded
-    // xyz - array storing coordinates of the vertices
     int errorVal = ParMETIS_V3_PartKway(vtxdist, xadjx, adjncy, vwgt, adjwgt,
         wgtflag, numflag, ncon, nparts, tpwgts, ubvec, options, edgecut,
         partArray, &comm);

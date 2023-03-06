@@ -47,7 +47,7 @@ The data is stored in HDF5 files (by default stored in the build directory). The
 ![alt text](https://github.com/max-si/vascpp/blob/main/Plots/5-2-geometry.png?raw=true)
 
 # Funding & Acknowledgments
-The development of this software was supported by ...
+The development of this software is supported by ...
 
 ## License
 Boost Software License 1.0

@@ -36,6 +36,18 @@ add_library(VascppLibrary
 			"${CMAKE_CURRENT_SOURCE_DIR}/NetworkPreprocessing/GenerateAdjacencyMatrix.cpp"
 			"${CMAKE_CURRENT_SOURCE_DIR}/NetworkPreprocessing/RenumberConnectedVesselsBeforeExport.cpp"
 			"${CMAKE_CURRENT_SOURCE_DIR}/NetworkPreprocessing/SortedVesselExporter.h"
-			"${CMAKE_CURRENT_SOURCE_DIR}/NetworkPreprocessing/SortedVesselExporter.cpp")	
+			"${CMAKE_CURRENT_SOURCE_DIR}/NetworkPreprocessing/SortedVesselExporter.cpp"
+			"${CMAKE_CURRENT_SOURCE_DIR}/NetworkPreprocessing/NodeProcessing.cpp"
+			"${CMAKE_CURRENT_SOURCE_DIR}/NetworkPreprocessing/NodeProcessing.h"
+			"${CMAKE_CURRENT_SOURCE_DIR}/NetworkPreprocessing/EdgeNode.h"
+			"${CMAKE_CURRENT_SOURCE_DIR}/NetworkPreprocessing/EdgeNode.cpp"
+			"${CMAKE_CURRENT_SOURCE_DIR}/NetworkPreprocessing/EdgeFinderVessel.cpp"
+			"${CMAKE_CURRENT_SOURCE_DIR}/NetworkPreprocessing/EdgeFinderVessel.h"
+			"${CMAKE_CURRENT_SOURCE_DIR}/NetworkPreprocessing/PartitionInformation.cpp"
+			"${CMAKE_CURRENT_SOURCE_DIR}/NetworkPreprocessing/PartitionInformation.h"
+			"${CMAKE_CURRENT_SOURCE_DIR}/NetworkPreprocessing/EdgeFinderIO.cpp"
+			"${CMAKE_CURRENT_SOURCE_DIR}/NetworkPreprocessing/EdgeFinderIO.h"
+			"${CMAKE_CURRENT_SOURCE_DIR}/NetworkPreprocessing/EdgeFinder.cpp"
+			"${CMAKE_CURRENT_SOURCE_DIR}/NetworkPreprocessing/EdgeFinder.h")	
 
 target_include_directories(VascppLibrary PUBLIC "${CMAKE_CURRENT_SOURCE_DIR}")
