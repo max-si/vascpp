@@ -123,6 +123,91 @@ std::vector<PreprocessorVessel> ImportGeometryAndConstructBaseVessels(hid_t file
     return std::move(vessels);
 }
 
+// import vessels -- put extra vessels first node
+std::vector<PreprocessorVessel> ImportGeometryAndConstructBaseVessels2(hid_t fileId)
+{
+    int mpiSize, mpiRank;
+    MPI_Comm_size(MPI_COMM_WORLD, &mpiSize);
+    MPI_Comm_rank(MPI_COMM_WORLD, &mpiRank);
+    
+    hid_t geomDatasetId = OpenHdfDataset(fileId, GEOM_GROUP_NAME, GEOM_DATASET);
+    hid_t nodeDatasetId = OpenHdfDataset(fileId, GEOM_GROUP_NAME, NODE_DATASET);
+
+    hsize_t dims[2] = {0};
+    hid_t dataspaceId = H5Dget_space(geomDatasetId);
+    H5Sget_simple_extent_dims(dataspaceId, dims, NULL);
+    H5Sclose(dataspaceId);
+
+    int rootNumLevels = log2(mpiSize) + 1;
+    long long rootNumVessels = pow(2, rootNumLevels) - 2;
+    // std::cout << "rootNumLevels = " << rootNumLevels << std::endl;
+    // std::cout << "rootNumVessels = " << rootNumVessels << std::endl;
+    // std::cout << "dims[0] = " << dims[0] << std::endl;
+
+    long long localNumVessels = (dims[0] - rootNumVessels) / mpiSize;
+    long long vesselOffset = 0;
+
+    if (mpiRank == 0) { 
+        // localNumVessels += dims[0] % mpiSize; 
+        localNumVessels += rootNumVessels; 
+    } else {
+        vesselOffset += rootNumVessels + (localNumVessels * mpiRank);
+    }
+
+    // std::cout << mpiRank << ": " << "localNumVessels = " << localNumVessels << std::endl;
+    // std::cout << mpiRank << ": " << "vesselOffset = " << vesselOffset << std::endl;
+
+    // determine import block size
+    long long remainingNumberOfVesselsToExport = localNumVessels % maxNumVesselsPerWrite;
+    int numLoopsNeeded = localNumVessels / maxNumVesselsPerWrite;
+    int globalNumLoopsNeeded = 0;
+
+    DetermineIOLoopCount(remainingNumberOfVesselsToExport, numLoopsNeeded, globalNumLoopsNeeded);
+
+    //createRequiredArrays
+    std::vector<double> geomImportArray;
+    geomImportArray.resize(maxNumVesselsPerWrite * 7);
+    std::vector<double> geomBuildArray;
+    geomBuildArray.resize(maxNumVesselsPerWrite * 7);
+
+    std::vector<long long> nodeImportArray;
+    nodeImportArray.resize(maxNumVesselsPerWrite * 2);
+    std::vector<long long> nodeBuildArray;
+    nodeBuildArray.resize(maxNumVesselsPerWrite * 2);
+    std::vector<PreprocessorVessel> vessels;
+    vessels.reserve(localNumVessels);
+
+    long long numVesselsToConstruct = 0;
+    if (remainingNumberOfVesselsToExport > 0)
+    {
+        ImportGeometryAndNodeDataBlock(geomDatasetId, nodeDatasetId, vesselOffset, remainingNumberOfVesselsToExport, geomBuildArray, nodeBuildArray);
+        numVesselsToConstruct = remainingNumberOfVesselsToExport;
+    }
+
+    for (int i = 0; i < globalNumLoopsNeeded; i++) {
+        if (i < numLoopsNeeded) {
+            long long vesselStartLocation = vesselOffset + remainingNumberOfVesselsToExport + i * maxNumVesselsPerWrite;
+            ImportGeometryAndNodeDataBlock(geomDatasetId, nodeDatasetId, vesselStartLocation, maxNumVesselsPerWrite, geomImportArray, nodeImportArray);
+            ConstructVesselsFromData(numVesselsToConstruct, vessels, geomBuildArray, nodeBuildArray);
+            std::swap(geomBuildArray, geomImportArray);
+            std::swap(nodeBuildArray, nodeImportArray);
+            numVesselsToConstruct = maxNumVesselsPerWrite;
+        }
+        else {
+            PerformNullImportOfGeometryAndNodes(geomDatasetId, nodeDatasetId);
+        }
+    }
+
+    ConstructVesselsFromData(numVesselsToConstruct, vessels, geomBuildArray, nodeBuildArray);
+    for (long long i = 0; i < localNumVessels; ++i) {
+        vessels[i].setInitialArrayPosition(vesselOffset + i);
+    }
+
+    H5Dclose(geomDatasetId);
+    H5Dclose(nodeDatasetId);
+    return std::move(vessels);
+}
+
 std::vector<short> ImportNumConnectedVessels(hid_t fileId, long long localVesselCount, long long localStartIndex)
 {
     int mpiSize, mpiRank;
@@ -263,21 +348,34 @@ void ImportConnectedVesselData(hid_t fileId, std::vector<PreprocessorVessel>& ve
     MPI_Comm_size(MPI_COMM_WORLD, &mpiSize);
     MPI_Comm_rank(MPI_COMM_WORLD, &mpiRank);
     long long totalNumVessels = GetTotalNumberOfVessels(fileId);
-    long long localNumVessels = totalNumVessels / mpiSize;
+    // long long localNumVessels = totalNumVessels / mpiSize;
 
-    long long vesselOffset = localNumVessels * mpiRank;
-    if (mpiRank == mpiSize - 1) { localNumVessels += totalNumVessels % mpiSize; }
+    // long long vesselOffset = localNumVessels * mpiRank;
+    // if (mpiRank == mpiSize - 1) { localNumVessels += totalNumVessels % mpiSize; }
+    int rootNumLevels = log2(mpiSize) + 1;
+    long long rootNumVessels = pow(2, rootNumLevels) - 2;
+    long long localNumVessels = (totalNumVessels - rootNumVessels) / mpiSize;
+    long long vesselOffset = 0;
+
+    if (mpiRank == 0) { 
+        localNumVessels += rootNumVessels; 
+    } else {
+        vesselOffset += rootNumVessels + (localNumVessels * mpiRank);
+    }
 
     //import Number Connected Vessels
+    //if(!mpiRank) { std::cout << "Importing Num Connected Vessels" << std::endl; }
     std::vector<short> numConnectedVessels = ImportNumConnectedVessels(fileId, localNumVessels, vesselOffset);
 
     //Determine Import Offsets and Numbers
+    //if(!mpiRank) { std::cout << "Determine Import Offsets and Numbers" << std::endl; }
     long long localNumConnectedVessels = std::accumulate(numConnectedVessels.begin(), numConnectedVessels.end(), 0LL);
     long long startPosition = 0;
     MPI_Exscan(&localNumConnectedVessels, &startPosition, 1, MPI_LONG_LONG_INT, MPI_SUM, MPI_COMM_WORLD);
     if (mpiRank == 0) { startPosition = 0; }
 
     //Import Connected Vessel Information
+    //if(!mpiRank) { std::cout << "Importing Connected Vessels Indexes and adding to vessels" << std::endl; }
     ImportConnectedVesselIndexesAndAddToVessels(fileId, numConnectedVessels, localNumVessels, startPosition, vessels);
 }
 
@@ -286,8 +384,10 @@ std::vector<PreprocessorVessel> PreprocessorVesselImporter(hid_t fileId) {
 	MPI_Comm_size(MPI_COMM_WORLD, &mpiSize);
 	MPI_Comm_rank(MPI_COMM_WORLD, &mpiRank);
 
-	std::vector<PreprocessorVessel> vessels = ImportGeometryAndConstructBaseVessels(fileId);
+	// std::vector<PreprocessorVessel> vessels = ImportGeometryAndConstructBaseVessels(fileId);
+    std::vector<PreprocessorVessel> vessels = ImportGeometryAndConstructBaseVessels2(fileId);
 
+    //if(!mpiRank) { std::cout << "Importing Connected Vessels" << std::endl; }
 	ImportConnectedVesselData(fileId, vessels);
 
 	return std::move(vessels);

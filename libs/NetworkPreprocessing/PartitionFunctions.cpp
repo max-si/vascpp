@@ -19,7 +19,6 @@
 
 
 void networkPreproc(std::string filename) {
-    //std::cout << "Entering network preprocessor" << std::endl;
 	int mpiSize, mpiRank;
 	MPI_Comm_size(MPI_COMM_WORLD, &mpiSize);
 	MPI_Comm_rank(MPI_COMM_WORLD, &mpiRank);
@@ -28,24 +27,30 @@ void networkPreproc(std::string filename) {
 	std::vector<PreprocessorVessel> vessels = PreprocessorVesselImporter(fileId);
 	MPI_Barrier(MPI_COMM_WORLD);
 
-	int numParts = mpiSize;
-	AdjacencyMatrix adjacencyMatrix;
-	GenerateAdjacencyMatrix(vessels, numParts, adjacencyMatrix);
+    for (int i = 0; i < vessels.size(); i++)
+    {
+        vessels[i].setPartitionNumber(mpiRank);
+    } 
 
-	PartitionMatrix(vessels, adjacencyMatrix);
+	// int numParts = mpiSize;
+	// AdjacencyMatrix adjacencyMatrix;
+	// GenerateAdjacencyMatrix(vessels, numParts, adjacencyMatrix);
 
-    adjacencyMatrix.DeallocateMatrix();
+	// PartitionMatrix(vessels, adjacencyMatrix);
+
+    // adjacencyMatrix.DeallocateMatrix();
+
+    // if(!mpiRank) {
+    //     for(int i = 0; i < vessels.size(); i++) {
+    //         std::cout << vessels[i]  << std::endl;
+    //     }
+    // }
 
     SortVesselsByPartition(vessels);
 
     RenumberConnectedVesselsBeforeExport(vessels);
 
-    ExportVesselDataSorted(fileId, vessels, numParts);
-
-    // if(!mpiRank)
-    //     for(int i = 0; i < vessels.size(); i++) {
-    //         std::cout << vessels[i]  << std::endl;
-    //     }
+    ExportVesselDataSorted(fileId, vessels, mpiSize);
 
     NodeProcessing(fileId);
 
@@ -110,7 +115,15 @@ void PartitionMatrix(std::vector<PreprocessorVessel>& vessels, AdjacencyMatrix& 
     for (i = 0; i < numVessels; i++)
     {
         vessels[i].setPartitionNumber(partArray[i]);
-    }
+        //std::cout << partArray[i] << " ";
+    } 
+    // std::cout << std::endl;
+    // if(!mpiRank) {
+    //     for(int i = 0; i < vessels.size(); i++) {
+    //         std::cout << vessels[i]  << std::endl;
+    //     }
+    // }
+
 }
 
 void SortVesselsByPartition(std::vector<PreprocessorVessel>& vessels)

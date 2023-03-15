@@ -424,51 +424,21 @@ void PressureListCreator(const NetworkDescription& network,
     //localTripletArray.resize(network.getLocalNumberOfVessels()* 4+2);
     
     CreatePressureTripletList(network, localTripletArray, nonLocalTripletArray, conductanceTypePtr);
-    /*for (auto& x : localTripletArray)
-	{
-		cout << x << '\n';
-	}
-	cout <<endl;*/
-    //cout << "nonLocalTripletArray size " <<nonLocalTripletArray.size()<<endl;
 
 
     gfx::timsort(nonLocalTripletArray.begin(), nonLocalTripletArray.end(), CompareTriplet);
     MergeTripletsInPlace(nonLocalTripletArray);
 
-
-// #pragma omp parallel shared(localTripletArray)
-//     {
-// #pragma omp master
-//         {
-//             pss::parallel_stable_sort(localTripletArray.begin(),
-//                 localTripletArray.end(), CompareTriplet);
-//         }
-//     }
-
-    /*for (auto& x : localTripletArray)
-	{
-		cout << x << '\n';
-	}
-	cout << endl;*/
-
     Triplet emptyTriplet = Triplet();
     TripletArray::iterator onePastEmptyTriplets = std::upper_bound(localTripletArray.begin(), localTripletArray.end(), emptyTriplet, CompareTriplet);
     localTripletArray.erase(localTripletArray.begin(), onePastEmptyTriplets);
-    //cout << "after delete" <<endl;
-    /*for (auto& x : localTripletArray)
-	{
-		cout << x << '\n';
-	}*/
-
-    //TestTripletListCreator(localTripletArray,network);
 
     MergeTriplets(localTripletArray);
 
     // communicate non-local nodes to where they belong
     NonLocalTripletCommunication(network, nonLocalTripletArray);
 
-    for (vector<Triplet>::iterator itr = nonLocalTripletArray.begin();
-         itr != nonLocalTripletArray.end(); ++itr)
+    for (vector<Triplet>::iterator itr = nonLocalTripletArray.begin(); itr != nonLocalTripletArray.end(); ++itr)
     {
         if (itr->first == itr->second)    // A host partition will always have a diagonal element
         {
@@ -483,10 +453,15 @@ void PressureListCreator(const NetworkDescription& network,
 
     gfx::timsort(tripletList.begin(), tripletList.end(), CompareTriplet);
 
-    for (TripletArray::iterator itr = tripletList.begin(); itr != tripletList.end(); ++itr)
-    {
-        itr->first -= network.getLocalRankStartRow();
-    }
+    // for (TripletArray::iterator itr = tripletList.begin(); itr != tripletList.end(); ++itr)
+    // {
+    //     itr->first -= network.getLocalRankStartRow();
+    // }
+
+    // for (auto& x : localTripletArray)
+	// {
+	// 	cout << x << '\n';
+	// }
 }
 
 void CreatePressureTripletList(const NetworkDescription& network,

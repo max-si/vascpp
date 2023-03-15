@@ -18,6 +18,18 @@ geom_array = k['GEOM_GROUP/GEOM_ARRAY']
 sz = len(geom_array)
 node_array = k['GEOM_GROUP/NODE_ARRAY']
 bbox = k['/boundingBox']
+numLevels = k['/numLevels']
+
+mpiSize = 4
+rootNumLevels = int(np.log2(mpiSize) + 1)
+rootNumVessels = (2**(rootNumLevels)) - 2
+vesselsPerPartition = int((sz - rootNumVessels)/mpiSize)
+zeroVessels = int(vesselsPerPartition + rootNumVessels)
+
+vesselPartitions = [zeroVessels, vesselsPerPartition, vesselsPerPartition, vesselsPerPartition]
+# print(vesselsPerPartition)
+# print(zeroVessels)
+# print(sum(vesselPartitions[:3]))
 
 #conductance_array = k['FLOW_GROUP/HEALTHY_CONDUCTANCE_ARRAY']
 
@@ -30,13 +42,12 @@ ax = fig.add_subplot(111)
 
 # plot data for distributed network (i.e., after step2)
 e = 'VESSELS_PER_PARTITION_ARRAY' in k
-#e = 0
 
 if e:
 	# retreive partition data
 	partition_num = k['VESSELS_PER_PARTITION_ARRAY']
 	p_sz = len(partition_num)
-	cmap = plt.get_cmap('brg',p_sz)
+	cmap = plt.get_cmap('Dark2',p_sz)
  
  	# plot the geom array
 	for i in range(0, sz):
@@ -46,7 +57,6 @@ if e:
 		node2 = node_array[i][1]
 		norm_rad = 1.5*(geom_array[i][6] / geom_array[0][6])
 		
-		#
 		for n in range(0, p_sz):
 			if i < partition_num[0]:
 				col = 0
@@ -59,8 +69,8 @@ if e:
 		ax.plot([x1,x2], [y1,y2], c=cmap(col), linewidth=norm_rad)
 		# plt.text(x1, y1+.001, node1, fontsize=8)
 		# plt.text(x2, y2+.001, node2, fontsize=8)
-		plt.text(x1, y1, node1, fontsize=6, bbox = dict(boxstyle=f"circle", fc="white"))
-		plt.text(x2, y2, node2, fontsize=6, bbox = dict(boxstyle=f"circle", fc="white"))
+		plt.text(x1, y1, node1, fontsize=5, bbox = dict(boxstyle=f"circle", fc="white"))
+		plt.text(x2, y2, node2, fontsize=5, bbox = dict(boxstyle=f"circle", fc="white"))
 		plt.text((x1+x2)/2, (y1+y2)/2 + 0.001, i, fontsize=6)
   
 	# Plot properties/customizations
@@ -73,8 +83,12 @@ if e:
 		vm = 4
 		tk = [0.5, 1.5, 2.5, 3.5] 
 		tklbl = ['1', '2', '3', '4']
+	elif p_sz == 8:
+		vm = 8
+		tk = [0.5, 1.5, 2.5, 3.5, 4.5, 5.5, 6.5, 7.5] 
+		tklbl = ['1', '2', '3', '4', '5', '6', '7', '8']
 	norm = mpl.colors.Normalize(vmin=0,vmax=vm)
-	sm = plt.cm.ScalarMappable(cmap=cmap, norm=norm)
+	sm = plt.cm.ScalarMappable(cmap='Dark2', norm=norm)
 	sm.set_array([])
 	cb = plt.colorbar(sm, ticks=tk, ax=ax)
 	cb.set_label(label='Partition Containing Geometry Data', weight='bold')
@@ -82,7 +96,7 @@ if e:
 	#ttl = filename[11] + ' Layers on ' + str(p_sz) + ' Nodes, After NP'
 	
   
-#! For single node
+#! Pre-partition
 else:
 	for i in range(0, sz):
 		[x1, x2] = [geom_array[i][0], geom_array[i][3]]
@@ -91,10 +105,24 @@ else:
 		node2 = node_array[i][1]
 		#conductance = conductance_array[i][0]
 		norm_rad = 3*(geom_array[i][6] / geom_array[0][6])
-		ax.plot([x1,x2], [y1,y2], color='black', linewidth=norm_rad)
+  
+		if i < vesselPartitions[0]:
+			col = 'red'
+			#print("partition 0, ", i)
+		elif i < sum(vesselPartitions[:2]) and i >= vesselPartitions[0]:
+			col = 'blue'
+			#print("partition 1, ", i)
+		elif i < sum(vesselPartitions[:3]) and i >= sum(vesselPartitions[:2]):
+			col = 'green'
+			#print("partition 2, ", i)
+		elif i >= sum(vesselPartitions[:3]):
+			col = 'purple'
+			#print("partition 3, ", i)
+  
+		ax.plot([x1,x2], [y1,y2], color=col, linewidth=norm_rad)
 		plt.text(x1, y1, node1, fontsize=6, bbox = dict(boxstyle=f"circle", fc="white"))
 		plt.text(x2, y2, node2, fontsize=6, bbox = dict(boxstyle=f"circle", fc="white"))
-		# plt.text((x1+x2)/2, (y1+y2)/2 + 0.001, i, fontsize=7, weight='bold')
+		plt.text((x1+x2)/2, (y1+y2)/2 + 0.001, i, fontsize=7, weight='bold')
 		#plt.text((x1+x2)/2, (y1+y2)/2 + 0.001, conductance, fontsize=6, weight='bold')
 		plt.xticks(fontsize=6)
 		plt.yticks(fontsize=6)
@@ -104,4 +132,4 @@ else:
 ax.set_xlabel('x [mm]', fontsize=8)
 ax.set_ylabel('y [mm]', fontsize=8)
 #plt.title("5 gen on 2 nodes - vascpp", weight='bold')
-plt.savefig('5-4-edgeNodes.png', dpi=300)
+plt.savefig('3-2-RenumSlices.png', dpi=300)

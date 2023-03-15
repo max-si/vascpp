@@ -489,16 +489,18 @@ void Network::generate_parallel(std::string filename) {
 //	- automatically determines if application is running sequentially or 
 // 		in parallel and builds accordingly
 //? change function to void?
-VesselVector Network::generate(std::string filename)
+//VesselVector Network::generate(std::string filename)
+void Network::generate(std::string filename)
 {
 	int mpiSize, mpiRank;
 	MPI_Comm_size(MPI_COMM_WORLD, &mpiSize);
 	MPI_Comm_rank(MPI_COMM_WORLD, &mpiRank);
 
 	// determine if generating sequentially or in parallel
-	VesselVector vessels;
+	// VesselVector vessels;
 	if (mpiSize == 1) {
 		// reserve memory for vessel vector
+		VesselVector vessels;
 		vessels.resize(numVessels, Vessel());
 
 		// generate arterial and venous trees
@@ -517,7 +519,7 @@ VesselVector Network::generate(std::string filename)
 		// generate network in parallel
 		generate_parallel(filename);
 	}
-	return vessels;
+	//return vessels;
 }
 
 // function to print the entire vector of vessels

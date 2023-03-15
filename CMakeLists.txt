@@ -9,6 +9,8 @@ find_package(HDF5 REQUIRED)
 find_package(MPI REQUIRED)
 find_package(Trilinos REQUIRED)
 find_package(ParMETIS REQUIRED)
+find_package(METIS REQUIRED)
+find_package(Eigen3 3.3 REQUIRED)
 
 SET(CMAKE_CXX_COMPILER ${Trilinos_CXX_COMPILER} )
 
@@ -17,6 +19,7 @@ set(CMAKE_CXX_STANDARD_REQUIRED True)
 
 include_directories(SYSTEM ${MPI_CXX_INCLUDE_PATH})
 include_directories(${Trilinos_INCLUDE_DIRS} ${Trilinos_TPL_INCLUDE_DIRS})
+include_directories(${METIS_INCLUDE_DIR})
 include_directories(${PARMETIS_INCLUDE_DIR})
 
 add_subdirectory(libs)

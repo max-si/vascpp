@@ -9,14 +9,10 @@
 #include "VesselGenerator/network.h"
 #include <string>
 
-void exampleRoutine (const Epetra_Comm& comm, std::ostream& out);
-
-double powerMethod(const Epetra_Operator&A, const int niters, const double tolerance);
-
-void EPetraCrsMatrix();
-
 void AssembleMatrixSequential(Network& network, std::string filename, int numLevels);
 
 void MLAztecOO();
 
 bool CheckFlowsAreCorrect(Network& network, Epetra_Vector& flows);
+
+void ImportNodesAndConductances(std::string filename, int start, int numRows, std::vector<long long>& nodeArray, std::vector<double>& conductanceArray);

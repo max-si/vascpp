@@ -3,15 +3,13 @@
 #SBATCH --job-name=vascpp
 #SBATCH --output=vascpp_build.out
 #SBATCH --partition=medusa
-#SBATCH --nodes=2
+#SBATCH --nodes=4
 #SBATCH --time=30:00
 
 # set xe
 
 # load modules
-module load gcc
-module load openmpi/4.1.4
-module load hdf5
+module load gcc openmpi hdf5 python
 
 # load spack env and packages
 cd /work/maxwell/spack
@@ -40,4 +38,4 @@ echo "Building . . ."
 cmake --build .
 
 # run program
-srun app/vessel_gen 3 2
+srun app/vessel_gen 4 2

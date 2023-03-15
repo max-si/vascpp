@@ -6,8 +6,6 @@ and analyze blood flow and radiation damage.
 ## Contact
 Author: Maxwell Cole | Louisiana State University, Department of Physics & Astronomy, Medical and Health Physics Program
 
-Date: 27 February 2023
-
 # Usage
 See rostam_build.sh for an example HPC build and launch script. 
 
@@ -18,6 +16,7 @@ Dependencies can be installed with spack package manager (https://github.com/spa
 * HDF5
 * ParMETIS
 * Trilinos
+* Eigen
 
 ### Build
 To build the project, create a bash script containing the following information:

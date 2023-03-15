@@ -697,7 +697,7 @@ void ExportEdgeNodesToFile(hid_t fileId, std::set<EdgeNode>& localEdgeNodes, Par
         {
             index[nodeIndex] = itr->getNode();
             //std::cout << "partInfo.partitionNum = " << partInfo.partitionNum << std::endl;
-            //std::cout << "Edge Node Index: " << index[nodeIndex] << ", on rank " << mpiRank << std::endl;
+            std::cout << "Edge Node Index: " << index[nodeIndex] << ", on rank " << mpiRank << std::endl;
 
             hostPartition[nodeIndex] = itr->getHostPartition();
             //std::cout << "Host Partition: " << hostPartition[nodeIndex] << ", on rank " << mpiRank << std::endl;
@@ -721,19 +721,15 @@ void ExportEdgeNodesToFile(hid_t fileId, std::set<EdgeNode>& localEdgeNodes, Par
     // std::cout << "numLocalEdgeNodesToExport = " << numLocalEdgeNodesToExport << ", on rank " << mpiRank << std::endl;
 
     //export node Index
-    //! double check - only showing one edge node
     CreateAndExportEdgeNodeIndexes(fileId, totalNumEdgeNodes, localEdgeNodeStart, numLocalEdgeNodesToExport, index);
 
     //export host partition
-    //! double check
     CreateAndExportEdgeNodeHostPartition(fileId, totalNumEdgeNodes, localEdgeNodeStart, numLocalEdgeNodesToExport, hostPartition);
 
     //export num associated parts
-    //! double check
     CreateAndExportEdgeNodeNumAssociatedPartitions(fileId, totalNumEdgeNodes, localEdgeNodeStart, numLocalEdgeNodesToExport, numAssociatedParts);
 
     //export associated parts
-    //! double check
     CreateAndExportEdgeNodeAssociatedPartitions(fileId,
         totalNumAssociatedPartitions, localAssociatedEdgeNodeStart,
         numLocalAssociatedPartitionsToExport, associatedParts);

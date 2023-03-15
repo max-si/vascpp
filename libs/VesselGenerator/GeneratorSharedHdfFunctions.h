@@ -22,7 +22,7 @@ typedef std::vector<Vessel> VesselVector;
 void ConvertRootVesselVectorsToDataTables(long long numVesselsToWrite,
     VesselVector& arteries,
     VesselVector& veins, double* geomArray,
-    long long* nodeArray, double* conductanceArray);
+    long long* nodeArray);
 /**
  * Function to serialize vessel objects
  *

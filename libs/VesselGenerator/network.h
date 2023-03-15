@@ -80,7 +80,8 @@ public:
 	void generate_root_parallel(VesselVector& arteries, VesselVector& veins, int rootNumLevels);
 	void generate_sub_parallel(VesselVector& arteries, VesselVector& veins, int rootNumLevels, int subNumLevels);
 	//! ****************
-	VesselVector generate(std::string filename);
+	// VesselVector generate(std::string filename);
+	void generate(std::string filename);
 	void print_vessels(VesselVector& vessels);
 	double getOutputFlowRate();
 	std::vector<double> getBoundingBox();

@@ -2,17 +2,14 @@
 #include <utility>
 #include <vector>
 
-//#include <mkl.h>
 #include <mpi.h>
-//#include <omp.h>
 
 #include "BloodFlowVessel.h"
 #include "NetworkDescription.h"
 #include "PressureCalculations.h"
 #include "Triplet.h"
 #include "PressureListCreator.h"
-
-// #include <vascular/blood_flow/SolvePressure.h>
+#include "Solver.h"
 
 using std::cout;
 using std::endl;
@@ -54,22 +51,16 @@ void CalculatePressures(NetworkDescription& network, std::vector<double>& pressu
     TripletList tripletList;
 
     MPI_Barrier(MPI_COMM_WORLD);
-    if (!mpiRank) { cout << "PressureListCreator" << endl; }
+    //if (!mpiRank) { cout << "PressureListCreator" << endl; }
     PressureListFunction(network, tripletList);
 
-    if (!mpiRank) { cout << "Permuting Matrix" << endl; }
+    //if (!mpiRank) { cout << "Permuting Matrix" << endl; }
     MPI_Barrier(MPI_COMM_WORLD);
     CreatePressureRhsVector(network, pressureSolutionVector);
 
-	std::cout << mpiRank << ": RHS solution Vector" << std::endl;
-	for (auto& x : pressureSolutionVector)
-	{
-		std::cout << x << std::endl;
-	}
-
-    // if (!mpiRank) { cout << "Entering Solver" << endl; }
-    // MPI_Barrier(MPI_COMM_WORLD);
-    //! SolvePressuresHypre(network, tripletList, pressureSolutionVector);
+    if (!mpiRank) { cout << endl << "Entering Trilinos Solver" << endl; }
+    MPI_Barrier(MPI_COMM_WORLD);
+    SolvePressures(network, tripletList, pressureSolutionVector);
 
     MPI_Barrier(MPI_COMM_WORLD);
 }
@@ -78,9 +69,6 @@ void CalculatePressures(NetworkDescription& network, std::vector<double>& pressu
 void CreatePressureRhsVector(const NetworkDescription& network, std::vector<double>& rhsSolutionVector)
 {
     long long numElementsInVector = network.getLocalRankEndRow() - network.getLocalRankStartRow() + 1;
-	std::cout << "network.getLocalRankEndRow()" << network.getLocalRankEndRow() << std::endl;
-	std::cout << "network.getLocalRankStartRow()" << network.getLocalRankStartRow() << std::endl;
-	std::cout << "network.GetPermutedBcNodeNumbers().size()" << network.GetPermutedBcNodeNumbers().size() << std::endl;
     rhsSolutionVector.assign(numElementsInVector, 0.0f);
 
     int index = 0;

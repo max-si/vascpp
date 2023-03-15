@@ -16,10 +16,8 @@
 
 #include "NetworkPreprocessing/PartitionFunctions.h"
 
-#include "BloodFlow/Triplet.h"
 #include "BloodFlow/BloodFlowFunc.h"
-// #include "BloodFlow/PressureListCreator.h"
-// #include "BloodFlow/EpetraTutorials.h"
+#include "BloodFlow/SequentialSolver.h"
 
 typedef std::vector<Vessel> VesselVector;
 typedef std::vector<std::vector<double>> Vector2D;
@@ -64,39 +62,60 @@ int main(int argc, char* argv[]) {
 	int mpiSize, mpiRank;
 	MPI_Comm_size(MPI_COMM_WORLD, &mpiSize);
 	MPI_Comm_rank(MPI_COMM_WORLD, &mpiRank);
+
+	if (!mpiRank) { 
+		std::cout << R"(__        __   ____     ______     ______   _______    ________)" << std::endl;
+		std::cout << R"(\+\      /+/  /+/\+\   /+/`````   /+/````` |+|````\+\ |+|````\+\)" << std::endl;
+		std::cout << R"( \+\    /+/  /+/  \+\  \+\_____  /+/       |+|,,,,/+/ |+|,,,,/+/)" << std::endl;
+		std::cout << R"(  \+\  /+/  /+/____\+\       \+\ \+\       |+|        |+|)" << std::endl;
+		std::cout << R"(   \+\/+/  /+/      \+\ ,,,,,/+/  \+\,,,,, |+|        |+|)" << std::endl;
+		std::cout << "    \u203E\u203E\u203E\u203E   \u203E\u203E        \u203E\u203E \u203E\u203E\u203E\u203E\u203E\u203E\u203E";
+		std::cout << "    \u203E\u203E\u203E\u203E\u203E\u203E\u203E \u203E\u203E\u203E        \u203E\u203E\u203E" << std::endl;
+	}
 	
 	Network network(numLevels, dims);
 	if (!mpiRank) { 
+		std::cout << std::endl << "-----------------------------" << std::endl;
+		std::cout << "- Building Network Geometry -" << std::endl;
+		std::cout << "-----------------------------" << std::endl;
 		std::cout << "Generations: " << numLevels << std::endl;
 		std::cout << "Total Number of Vessels: " << (pow(2, numLevels+1) - 2) << std::endl; 
 	}
 
 	// Generate network and return vector containing vessels
 	double time = MPI_Wtime();
-	VesselVector vessels = network.generate(filename);
+	network.generate(filename);
 	if (!mpiRank) {
 		std::cout << "-- Total Network Generation Time: " << (MPI_Wtime()-time) << " seconds" << std::endl;
 	}
 
-
-	//! Starting PreProcessing
-	if (!mpiRank) { std::cout << std::endl << "Starting Network Preprocessing" << std::endl; }
-	double t2 = MPI_Wtime();
-	networkPreproc(filename);
-	if (!mpiRank) {
-		std::cout << "-- Network Preprocessing Time: " << (MPI_Wtime()-time) << " seconds" << std::endl;
+	// single node Blood Flow Solver
+	if (mpiSize == 1) {
+		double solve_time = MPI_Wtime();
+		AssembleMatrixSequential(network, filename, numLevels);
+		std::cout << "-- Total Sequential Blood Flow Solve Time: " << (MPI_Wtime()-solve_time) << " seconds" << std::endl;
 	}
 
-	// Epetra tests
-	//MLAztecOO ();
-	// if (mpiSize == 1) {
-	// 	AssembleMatrixSequential(network, filename, numLevels);
-	// }
 
-	//! Starting Blood Flow Solver
-	if (!mpiRank) { std::cout << std::endl << "Starting Blood Flow Solver" << std::endl; }
-	BloodFlowExe(filename);
-	
+	//************************\\
+	//*    Parallel Solver   *\\
+	//************************\\
+
+	// Starting PreProcessing
+	if (mpiSize != 1) { if(!mpiRank) {std::cout << std::endl << "----------------------------------" << std::endl; }}
+	if (mpiSize != 1) { if(!mpiRank) {std::cout << "- Starting Network Preprocessing -" << std::endl; }}
+	if (mpiSize != 1) { if(!mpiRank) {std::cout << "----------------------------------" << std::endl; }}
+	double t2 = MPI_Wtime();
+	if (mpiSize != 1) { networkPreproc(filename); }
+	if (mpiSize != 1) { if (!mpiRank) { std::cout << std::endl << "-- Total Network Preprocessing Time: " << (MPI_Wtime()-t2) << " seconds" << std::endl; }}
+
+	// Starting Blood Flow Solver (parallel)
+	if (mpiSize != 1) { if(!mpiRank) { std::cout << std::endl << "------------------------------" << std::endl; }}
+	if (mpiSize != 1) { if(!mpiRank) { std::cout << "- Starting Blood Flow Solver -" << std::endl; } }
+	if (mpiSize != 1) { if(!mpiRank) { std::cout << "------------------------------" << std::endl; }}
+	double t3 = MPI_Wtime();
+	if (mpiSize != 1) { BloodFlowExe(filename); }
+	if (mpiSize != 1) { if (!mpiRank) { std::cout << std::endl << "-- Total Blood Flow App Time: " << (MPI_Wtime()-t3) << " seconds" << std::endl; }}
 
 	MPI_Finalize();
 	return 0;

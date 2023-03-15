@@ -43,8 +43,8 @@ add_library(VascppLibrary
 			"${CMAKE_CURRENT_SOURCE_DIR}/NetworkPreprocessing/EdgeFinderIO.h"
 			"${CMAKE_CURRENT_SOURCE_DIR}/NetworkPreprocessing/EdgeFinder.cpp"
 			"${CMAKE_CURRENT_SOURCE_DIR}/NetworkPreprocessing/EdgeFinder.h"
-			"${CMAKE_CURRENT_SOURCE_DIR}/BloodFlow/EpetraTutorials.cpp"
-			"${CMAKE_CURRENT_SOURCE_DIR}/BloodFlow/EpetraTutorials.h"
+			"${CMAKE_CURRENT_SOURCE_DIR}/BloodFlow/SequentialSolver.cpp"
+			"${CMAKE_CURRENT_SOURCE_DIR}/BloodFlow/SequentialSolver.h"
 			"${CMAKE_CURRENT_SOURCE_DIR}/BloodFlow/Triplet.cpp"
 			"${CMAKE_CURRENT_SOURCE_DIR}/BloodFlow/Triplet.h"
 			"${CMAKE_CURRENT_SOURCE_DIR}/BloodFlow/BloodFlowFunc.cpp"
@@ -64,6 +64,12 @@ add_library(VascppLibrary
 			"${CMAKE_CURRENT_SOURCE_DIR}/BloodFlow/PressureListCreator.cpp"
 			"${CMAKE_CURRENT_SOURCE_DIR}/BloodFlow/PressureListCreator.h"
 			"${CMAKE_CURRENT_SOURCE_DIR}/BloodFlow/MergeTriplets.cpp"
-			"${CMAKE_CURRENT_SOURCE_DIR}/BloodFlow/MergeTriplets.h")	
+			"${CMAKE_CURRENT_SOURCE_DIR}/BloodFlow/MergeTriplets.h"
+			"${CMAKE_CURRENT_SOURCE_DIR}/BloodFlow/Solver.cpp"
+			"${CMAKE_CURRENT_SOURCE_DIR}/BloodFlow/Solver.h"
+			"${CMAKE_CURRENT_SOURCE_DIR}/BloodFlow/FlowCalculations.cpp"
+			"${CMAKE_CURRENT_SOURCE_DIR}/BloodFlow/FlowCalculations.h"
+			"${CMAKE_CURRENT_SOURCE_DIR}/BloodFlow/BloodFlowExporter.cpp"
+			"${CMAKE_CURRENT_SOURCE_DIR}/BloodFlow/BloodFlowExporter.h")	
 
 target_include_directories(VascppLibrary PUBLIC "${CMAKE_CURRENT_SOURCE_DIR}")

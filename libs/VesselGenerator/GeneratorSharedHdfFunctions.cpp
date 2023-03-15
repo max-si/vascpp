@@ -88,7 +88,7 @@ void ConvertVesselToTableRow(Vessel& vessel, double* geomArray,
 void ConvertRootVesselVectorsToDataTables(long long numVesselsToWrite,
     VesselVector& arteries,
     VesselVector& veins, double* geomArray,
-    long long* nodeArray, double* conductanceArray)
+    long long* nodeArray)
 {
     long long rowIndex = 0, geomTableIndex = 0, nodeTableIndex = 0;
     VesselVector::size_type i;
@@ -97,7 +97,7 @@ void ConvertRootVesselVectorsToDataTables(long long numVesselsToWrite,
     {
         ConvertVesselToGeometryRow(arteries[i], geomArray, geomTableIndex);
         ConvertVesselToNodeRow(arteries[i], nodeArray, nodeTableIndex);
-        ConvertVesselToConductanceRow(arteries[i], conductanceArray, rowIndex);
+        //ConvertVesselToConductanceRow(arteries[i], conductanceArray, rowIndex);
         geomTableIndex += 7;
         nodeTableIndex += 2;
         rowIndex += 1;
@@ -107,7 +107,7 @@ void ConvertRootVesselVectorsToDataTables(long long numVesselsToWrite,
     {
         ConvertVesselToGeometryRow(veins[i], geomArray, geomTableIndex);
         ConvertVesselToNodeRow(veins[i], nodeArray, nodeTableIndex);
-        ConvertVesselToConductanceRow(veins[i], conductanceArray, rowIndex);
+        //ConvertVesselToConductanceRow(veins[i], conductanceArray, rowIndex);
         geomTableIndex += 7;
         nodeTableIndex += 2;
         rowIndex += 1;

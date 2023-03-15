@@ -45,10 +45,8 @@ void WriteSubVesselsToFile(long long subArterialTreeNumberOfVessels,
     ConvertVesselVectorsToGeometryArray(subArterialTreeNumberOfVessels, arteries, geomVector.data());
 
     // Determine number of blocks for successful write
-    const long long remainingNumberOfVesselsToExport =
-        subArterialTreeNumberOfVessels % maxNumVesselsPerWrite;
-    const int numLoopsNeeded =
-        subArterialTreeNumberOfVessels / maxNumVesselsPerWrite;
+    const long long remainingNumberOfVesselsToExport = subArterialTreeNumberOfVessels % maxNumVesselsPerWrite;
+    const int numLoopsNeeded = subArterialTreeNumberOfVessels / maxNumVesselsPerWrite;
 
     // cout << numLoopsNeeded << ", " << remainingNumberOfVesselsToExport<<endl;
     size_t memoryOffset;
@@ -160,20 +158,20 @@ void WriteSubVesselsToFile(long long subArterialTreeNumberOfVessels,
     nodeVector.clear();
 
     //! write sub conductances to matrix
-    hid_t conductanceDatasetId = OpenHdfDataset(file_id, FLOW_GROUP_NAME, HEALTHY_CONDUCTANCE_DATASET);
+    // hid_t conductanceDatasetId = OpenHdfDataset(file_id, FLOW_GROUP_NAME, HEALTHY_CONDUCTANCE_DATASET);
 
-    vector<double> conductanceVector(totalNumberOfVesselsToExport);
-    ConvertVesselVectorsToConductanceArray(totalNumberOfVesselsToExport / 2, arteries, veins, conductanceVector.data());
-    // for(int i = 0; i < conductanceVector.size(); i++) {
-    //     std::cout << conductanceVector[i] << std::endl;
-    // }
-    CollectiveHdfBlockExport<double, 2, 1>(conductanceDatasetId,
-        totalNumberOfRootVessels + mpiRank * totalNumberOfVesselsToExport,
-        totalNumberOfVesselsToExport, conductanceVector);
+    // vector<double> conductanceVector(totalNumberOfVesselsToExport);
+    // ConvertVesselVectorsToConductanceArray(totalNumberOfVesselsToExport / 2, arteries, veins, conductanceVector.data());
+    // // for(int i = 0; i < conductanceVector.size(); i++) {
+    // //     std::cout << conductanceVector[i] << std::endl;
+    // // }
+    // CollectiveHdfBlockExport<double, 2, 1>(conductanceDatasetId,
+    //     totalNumberOfRootVessels + mpiRank * totalNumberOfVesselsToExport,
+    //     totalNumberOfVesselsToExport, conductanceVector);
 
-    H5Dclose(conductanceDatasetId);
+    // H5Dclose(conductanceDatasetId);
 
-    conductanceVector.clear();
+    // conductanceVector.clear();
 }
 
 void WriteSubConnectedVesselDataToFile(long numVesselsExport,
@@ -379,27 +377,13 @@ void ExportSubVesselsToHdf5(hid_t file_id, int totalLevels, int subLevels,
         conductanceDatasetId, numConnectionsDataset, connectionsArrayDataset;
     herr_t status;
 
-    // cout << "Length of Arteries and Veins" << arteries.size() << " " <<
-    // veins.size() << endl;
-
     long long totalNumVessels = pow(2, totalLevels + 1) - 2;
     long long subNumVessels = pow(2, subLevels + 1) - 1;
     long long rootNumVessels = pow(2, totalLevels - subLevels - 1) - 1;
 
-    // cout << subNumVessels << endl;
-    // cout << rootNumVessels << endl;
-
     double time;
 
-    // cout << "Write Vessel Data" << endl;
-    //!time = -omp_get_wtime();
-    // if (mpiRank == 0)
-    //     cout << "Write Geom Data to File " << endl;
-
     WriteSubVesselsToFile(subNumVessels, rootNumVessels, file_id, arteries, veins);
-
-    //! if (mpiRank == 0)
-    //!     cout << "Write Geom Data time: " << omp_get_wtime() + time << endl;
 
     vector<short> numConnectedVesselsArray(2 * subNumVessels);
     long long totalNumConnectedVessels = PopulateNumConnectedVesselsArray(arteries, veins, numConnectedVesselsArray, subNumVessels);
@@ -428,21 +412,10 @@ void SubVesselExporter(std::string filename,
     MPI_Comm_size(MPI_COMM_WORLD, &mpiSize);
     MPI_Comm_rank(MPI_COMM_WORLD, &mpiRank);
 
-    // cout << " Rank 0 exporting data" << endl;
-
     hid_t file_id, group_id, datasetId, geomDatasetId, nodeDatasetId,conductanceDatasetId, dataspaceId, dcpl;
     herr_t status;
 
-    // cout << mpiRank << ": Open File" << endl;
-    //! double time = -omp_get_wtime();
-    // if (mpiRank == 0)
-    //     cout << "Opening file" << endl;
-
     file_id = OpenHdfFile(filename);
-
-    //! if (mpiRank == 0)
-    //!     cout << "time: " << omp_get_wtime() + time << endl;
-    // cout << mpiRank << ": File Open " << endl;
 
     ExportSubVesselsToHdf5(file_id, levels, subLevels, arteries, veins);
 
@@ -460,27 +433,11 @@ void SubVesselExporter(hid_t file_id,
     MPI_Comm_size(MPI_COMM_WORLD, &mpiSize);
     MPI_Comm_rank(MPI_COMM_WORLD, &mpiRank);
 
-    // cout << " Rank 0 exporting data" << endl;
-
-    //hid_t group_id, datasetId, geomDatasetId, nodeDatasetId, conductanceDatasetId, dataspaceId, dcpl;
     herr_t status;
-    
-    // cout << mpiRank << ": Open File" << endl;
-    //! double time = -omp_get_wtime();
-    // MPI_Barrier(MPI_COMM_WORLD);
-    // if (mpiRank == 0) cout << "Opening file" << endl;
-    // file_id = OpenHdfFile(filename);
-    // if (mpiRank == 0) cout << "time: " << omp_get_wtime() + time << endl;
-    // cout << mpiRank << ": File Open " << endl;
     
     ExportSubVesselsToHdf5(file_id, levels, subLevels, arteries, veins);
 
-    //! time = -omp_get_wtime();
-    // if (mpiRank == 0) cout << "Closing file" << endl;
-
     status = H5Fclose(file_id);
-
-    // if (mpiRank == 0) cout << "time: " << omp_get_wtime() + time << endl;
 
     return;
 }

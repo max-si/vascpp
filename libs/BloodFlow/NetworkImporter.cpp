@@ -491,8 +491,7 @@ void ConstructRowBounds(NetworkDescription& network)
     for (int i = 0; i < mpiSize; ++i)
     {
         int index = i * 2;
-        network.addRowBoundPairToVector(
-            recvBuffer[index], recvBuffer[index + 1]);
+        network.addRowBoundPairToVector(recvBuffer[index], recvBuffer[index + 1]);
     }
 
     delete[] recvBuffer;

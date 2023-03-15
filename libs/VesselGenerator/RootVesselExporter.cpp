@@ -24,7 +24,7 @@ typedef unsigned long ulong;
 #define NUM_ITEMS_PER_CHUNK 1024
 
 void WriteRootVesselsToFile(int numVesselsExport, hid_t geomDatasetId,
-    double* geomArray, hid_t nodeDatasetId, long long* nodeArray, hid_t conductanceDatasetId, double* conductanceArray)
+    double* geomArray, hid_t nodeDatasetId, long long* nodeArray)
 {
     hid_t memSpaceId, dataSpaceId;
     hsize_t dims[2];
@@ -41,11 +41,9 @@ void WriteRootVesselsToFile(int numVesselsExport, hid_t geomDatasetId,
     start[1] = 0;
     count[0] = numVesselsExport;
     count[1] = 7;
-    H5Sselect_hyperslab(
-        dataSpaceId, H5S_SELECT_SET, start, blockStride, count, blockStride);
+    H5Sselect_hyperslab(dataSpaceId, H5S_SELECT_SET, start, blockStride, count, blockStride);
 
-    H5Dwrite(geomDatasetId, H5T_NATIVE_DOUBLE, memSpaceId, dataSpaceId,
-        H5P_DEFAULT, geomArray);
+    H5Dwrite(geomDatasetId, H5T_NATIVE_DOUBLE, memSpaceId, dataSpaceId, H5P_DEFAULT, geomArray);
     H5Sclose(memSpaceId);
     H5Sclose(dataSpaceId);
 
@@ -61,32 +59,29 @@ void WriteRootVesselsToFile(int numVesselsExport, hid_t geomDatasetId,
     start[1] = 0;
     count[0] = numVesselsExport;
     count[1] = 2;
-    H5Sselect_hyperslab(
-        dataSpaceId, H5S_SELECT_SET, start, blockStride, count, blockStride);
+    H5Sselect_hyperslab(dataSpaceId, H5S_SELECT_SET, start, blockStride, count, blockStride);
 
-    H5Dwrite(nodeDatasetId, H5T_NATIVE_LLONG, memSpaceId, dataSpaceId,
-        H5P_DEFAULT, nodeArray);
+    H5Dwrite(nodeDatasetId, H5T_NATIVE_LLONG, memSpaceId, dataSpaceId, H5P_DEFAULT, nodeArray);
     H5Sclose(memSpaceId);
     H5Sclose(dataSpaceId);
 
     // write root conductances to file
-    dims[0] = numVesselsExport;
-    dims[1] = 1;
-    memSpaceId = H5Screate_simple(2, dims, NULL);
-    dataSpaceId = H5Dget_space(conductanceDatasetId);
+    // dims[0] = numVesselsExport;
+    // dims[1] = 1;
+    // memSpaceId = H5Screate_simple(2, dims, NULL);
+    // dataSpaceId = H5Dget_space(conductanceDatasetId);
 
-    blockStride[0] = 1;
-    blockStride[1] = 1;
-    start[0] = 0;
-    start[1] = 0;
-    count[0] = numVesselsExport;
-    count[1] = 1;
-    H5Sselect_hyperslab(
-        dataSpaceId, H5S_SELECT_SET, start, blockStride, count, blockStride);
+    // blockStride[0] = 1;
+    // blockStride[1] = 1;
+    // start[0] = 0;
+    // start[1] = 0;
+    // count[0] = numVesselsExport;
+    // count[1] = 1;
+    // H5Sselect_hyperslab(dataSpaceId, H5S_SELECT_SET, start, blockStride, count, blockStride);
 
-    H5Dwrite(conductanceDatasetId, H5T_NATIVE_DOUBLE, memSpaceId, dataSpaceId, H5P_DEFAULT, conductanceArray);
-    H5Sclose(memSpaceId);
-    H5Sclose(dataSpaceId);
+    // H5Dwrite(conductanceDatasetId, H5T_NATIVE_DOUBLE, memSpaceId, dataSpaceId, H5P_DEFAULT, conductanceArray);
+    // H5Sclose(memSpaceId);
+    // H5Sclose(dataSpaceId);
 }
 
 void WriteRootConnectedVesselDataToFile(int numVesselsExport,
@@ -162,29 +157,26 @@ void ExportRootVesselsToHdf5(hid_t file_id, int totalLevels, int rootLevels,
     nodeDatasetId = CreateNodeHdfDataset(file_id, totalLevels, totalNumVessels);
 
     //cout << "Create Conductance Dataset" << endl;
-    conductanceDatasetId = CreateHealthyConductanceHdfDataset(file_id, totalLevels, totalNumVessels);
+    //conductanceDatasetId = CreateHealthyConductanceHdfDataset(file_id, totalLevels, totalNumVessels);
 
     double* geomArray = new double[2 * rootNumVessels * 7];
     long long* nodeArray = new long long[2 * rootNumVessels * 2];
-    double* conductanceArray = new double[2 * rootNumVessels];
+    //double* conductanceArray = new double[2 * rootNumVessels];
 
     // cout << "Populate arrays" << endl;
-    ConvertRootVesselVectorsToDataTables(rootNumVessels, arteries, veins, geomArray, nodeArray, conductanceArray);
+    ConvertRootVesselVectorsToDataTables(rootNumVessels, arteries, veins, geomArray, nodeArray);
 
-    // for(int i = 0; i < 2*rootNumVessels; i++) {
-    //     std::cout << conductanceArray[i] << " ";
-    // } std::cout << std::endl;
 
     // cout << "Write Vessel Data" << endl;
-    WriteRootVesselsToFile(2 * rootNumVessels, geomDatasetId, geomArray, nodeDatasetId, nodeArray, conductanceDatasetId, conductanceArray);
+    WriteRootVesselsToFile(2 * rootNumVessels, geomDatasetId, geomArray, nodeDatasetId, nodeArray);
 
     delete[] nodeArray;
     delete[] geomArray;
-    delete[] conductanceArray;
+    //delete[] conductanceArray;
 
     status = H5Dclose(geomDatasetId);
     status = H5Dclose(nodeDatasetId);
-    status = H5Dclose(conductanceDatasetId);
+    //status = H5Dclose(conductanceDatasetId);
 
     short* numConnectedVesselsArray = new short[2 * rootNumVessels];
     long long totalNumConnectedVessels = PopulateRootNumConnectedVesselsArray(arteries, veins, numConnectedVesselsArray, rootNumVessels);

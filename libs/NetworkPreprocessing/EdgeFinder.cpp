@@ -29,36 +29,34 @@ using std::set;
 using std::string;
 using std::vector;
 
+//! I think this assumes all partitions have contiguous vessels
 void MarkVesselLocality(long long vesselStartIndex, vector<EdgeFinderVessel>& vessels, map<long long, EdgeFinderVessel>& nonLocalVessels)
 {
     long long lowerVesselIndexBound = vesselStartIndex;
     long long upperVesselIndexBound = vesselStartIndex + vessels.size();
-//#pragma omp parallel for
+
     for (long long j = 0; j < vessels.size(); j++)
     {
         const vector<long long>& temp = vessels[j].getConnectedVessels();
+
+        // std::cout << j << ": ";
+        // for(int i = 0; i < temp.size(); i++) {
+        //     std::cout << temp[i] << " ";
+        // } std::cout << std::endl;
+        
         bool allConnectedVesselsInRange = true;
-        for (vector<long long>::const_iterator itr = temp.begin();
-             itr != temp.end(); itr++)
-        {
-            if (*itr < lowerVesselIndexBound || *itr >= upperVesselIndexBound)
-            {
+        for (vector<long long>::const_iterator itr = temp.begin(); itr != temp.end(); itr++) {
+            if (*itr < lowerVesselIndexBound || *itr >= upperVesselIndexBound) {
                 allConnectedVesselsInRange = false;
                 break;
             }
         }
 
-        if (allConnectedVesselsInRange)
-        {
+        if (allConnectedVesselsInRange) {
             vessels[j].setVesselLocal(true);
-        }
-        else
-        {
+        } else {
             vessels[j].setVesselLocal(false);
-//#pragma omp critical
-            {
-                nonLocalVessels.insert(std::make_pair(j + vesselStartIndex, vessels[j]));
-            }
+            nonLocalVessels.insert(std::make_pair(j + vesselStartIndex, vessels[j]));
         }
     }
 }
@@ -173,6 +171,8 @@ std::set<EdgeNode> CreateEdgeNodeSet(const vector<EdgeFinderVessel>& vessels,
     return std::move(localEdgeNodes);
 }
 
+
+//!!!!! Find edge node error
 void FindLocalEdgeNodes(vector<EdgeFinderVessel>& vessels,
     long long vesselStartIndex, std::set<EdgeNode>& localEdgeNodes)
 {
@@ -183,7 +183,7 @@ void FindLocalEdgeNodes(vector<EdgeFinderVessel>& vessels,
     map<long long, EdgeFinderVessel> nonLocalVessels;
 
     MarkVesselLocality(vesselStartIndex, vessels, nonLocalVessels);
-    // if (!mpiRank) {cout << nonLocalVessels.size() << endl;}
+    // cout << vessels.size() << endl;
     // for(int i = 0; i < nonLocalVessels.size(); i++){
     //     std::cout << nonLocalVessels[i] << std::endl;
     // }
